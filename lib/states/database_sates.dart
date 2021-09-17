@@ -1,0 +1,1 @@
+enum DatabaseStates { InitialState, LoadedState }
