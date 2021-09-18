@@ -16,6 +16,7 @@ void main() async {
   await CacheHelper.init();
   await translator.init(
     localeType: LocalizationDefaultType.device,
+    language: setLanguage(),
     languagesList: <String>['ar', 'en'],
     assetsDirectory: 'assets/langs/',
   );
@@ -27,6 +28,17 @@ void main() async {
       ),
     ),
   );
+}
+
+String setLanguage() {
+  if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == null ||
+      CacheHelper.getStringData(key: sharedPrefsLanguageKey) == false) {
+    return 'ar';
+  } else if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == 'eg') {
+    return 'ar';
+  } else {
+    return 'en';
+  }
 }
 
 class AkhbaryApp extends StatelessWidget {
