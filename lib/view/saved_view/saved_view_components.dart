@@ -16,27 +16,26 @@ class BuildListOfSavedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsetsDirectional.only(start: 20.0, end: 20.0, top: 15.0),
-      child: ListView.separated(
-        itemCount: articles.length,
-        separatorBuilder: (_, index) => Divider(
-          color: appMainColor,
-        ),
-        itemBuilder: (_, index) {
-          return BuildItemOfSavedList(
+    return ListView.separated(
+      itemCount: articles.length,
+      separatorBuilder: (_, index) => Divider(
+        color: appMainColor,
+      ),
+      itemBuilder: (_, index) {
+        return Padding(
+          padding: const EdgeInsetsDirectional.only(start: 20.0, end: 20.0, top: 15.0),
+          child: BuildItemOfSavedList(
             article: articles[index],
             onDismiss: (DismissDirection direction) {
               context
                   .read<DatabaseViewModel>()
-                  .deleteSelectedArticle(articles[index].publishedAt);
+                  .deleteSelectedArticle(articles[index]);
               Toast.show('item deleted'.tr(), context,
                   duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

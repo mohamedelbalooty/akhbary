@@ -1,4 +1,4 @@
-package com.mohamedElbalooty.akhbary_app
+package com.mohamedElbalooty.akhbary
 
 import io.flutter.embedding.android.FlutterActivity
 

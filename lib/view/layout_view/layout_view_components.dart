@@ -58,6 +58,13 @@ List<BottomNavigationBarItem> buildBottomNavigationBarItems({
       unselectedIcon: Icons.bookmark_border_outlined,
       toolTip: 'saved tooltip'.tr(),
     ),
+    _buildBottomNavigationBarItem(
+      index: index,
+      selectedIndex: 3,
+      selectedIcon: Icons.settings,
+      unselectedIcon: Icons.settings,
+      toolTip: 'Setting'.tr(),
+    ),
   ];
 }
 

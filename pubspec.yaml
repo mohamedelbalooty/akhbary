@@ -27,6 +27,10 @@ dependencies:
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^0.2.3
   animated_theme_switcher: ^2.0.1
+  package_info: ^2.0.0
+  flutter_switch: ^0.3.2
+  url_launcher: ^6.0.10
+  share: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +43,7 @@ flutter:
   assets:
     - assets/langs/en.json
     - assets/langs/ar.json
+    - assets/langs/fr.json
     - assets/images/
 
   fonts:

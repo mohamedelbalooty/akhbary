@@ -1,6 +1,6 @@
 import 'package:akhbary_app/model/article.dart';
 import 'package:akhbary_app/model/error_result.dart';
-import 'package:akhbary_app/services/local_services/cache_helper.dart';
+import 'package:akhbary_app/utils/helper/cache_helper.dart';
 import 'package:akhbary_app/services/remote_services/article_services.dart';
 import 'package:akhbary_app/states/article_states.dart';
 import 'package:akhbary_app/utils/app_constants.dart';
@@ -202,6 +202,7 @@ class ArticleViewModel extends ChangeNotifier {
 
   Future<void> getArticlesFromSearching({@required String searchValue}) async {
     searchingStates = SearchingStates.LoadingState;
+    notifyListeners();
     if (searchValue.isNotEmpty) {
       await _articleServicesImplementation
           .getArticlesFromSearch(searchValue: searchValue)

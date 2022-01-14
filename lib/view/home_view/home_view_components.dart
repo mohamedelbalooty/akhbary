@@ -1,175 +1,71 @@
 import 'dart:io';
-
 import 'package:akhbary_app/model/article.dart';
-import 'package:akhbary_app/provider/app_provider.dart';
-import 'package:akhbary_app/provider/app_theme_provider.dart';
+import 'package:akhbary_app/provider/carousel_slider_provider.dart';
+import 'package:akhbary_app/provider/tap_bar_provider.dart';
+import 'package:akhbary_app/states/database_sates.dart';
 import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:akhbary_app/utils/colors.dart';
-import 'package:akhbary_app/view_model/article_view_model.dart';
 import 'package:akhbary_app/view_model/database_view_model.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:share/share.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:toast/toast.dart';
 import '../app_components.dart';
 import '../web_screen_view.dart';
 
 AppBar buildHomeViewAppBar(BuildContext context, bool isPortrait) {
   return AppBar(
     centerTitle: false,
-    title: Container(
-      height: 25.0,
-      width: 80,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      child: Row(
-        children: [
-          Container(
-            height: 25.0,
-            width: translator.activeLanguageCode == 'ar' ? 50.0 : 55.0,
-            padding: translator.activeLanguageCode == 'ar'
-                ? EdgeInsets.only(right: 10, top: 5.0)
-                : EdgeInsets.only(top: 5.0),
-            decoration: BoxDecoration(
-              color: appMainColor,
-              borderRadius: BorderRadiusDirectional.only(
-                topStart: Radius.circular(4.0),
-                bottomStart: Radius.circular(4.0),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                'homeAppTitlePart1'.tr(),
-                style: TextStyle(
-                  color: Theme.of(context).appBarTheme.backgroundColor,
-                  fontSize: translator.activeLanguageCode == 'ar' ? 16.0 : 14.0,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: 25.0,
-            width: translator.activeLanguageCode == 'ar' ? 30.0 : 25.0,
-            padding: translator.activeLanguageCode == 'ar'
-                ? EdgeInsets.only(left: 10, top: 5.0)
-                : EdgeInsets.only(top: 5.0),
-            decoration: BoxDecoration(
-              color: Theme.of(context).tabBarTheme.labelColor,
-              borderRadius: BorderRadiusDirectional.only(
-                topEnd: Radius.circular(4.0),
-                bottomEnd: Radius.circular(4.0),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                'homeAppTitlePart2'.tr(),
-                style: TextStyle(
-                  color: Theme.of(context).appBarTheme.backgroundColor,
-                  fontSize: translator.activeLanguageCode == 'ar' ? 16.0 : 14.0,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+    title: Text(
+      'welcome'.tr(),
+      style: TextStyle(
+          color: Theme.of(context).tabBarTheme.labelColor,
+          fontSize: 28.0,
+          fontWeight: FontWeight.w500,
+          height: 2),
     ),
     titleSpacing: 20.0,
     actions: [
-      ThemeSwitcher(
-        builder: (context) => Consumer<AppThemeProvider>(
-          builder: (context, provider, child) {
-            return IconButton(
-              icon: Icon(
-                provider.isDark ? Icons.wb_sunny_outlined : Icons.wb_sunny,
-                color: appMainColor,
+      Padding(
+        padding: const EdgeInsetsDirectional.only(end: 20.0),
+        child: Hero(
+          tag: 'splash',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/logo.png',
+                height: 28.0,
+                width: 35.0,
+                fit: BoxFit.fill,
               ),
-              onPressed: () {
-                provider.changeAppTheme();
-                ThemeSwitcher.of(context).changeTheme(
-                  theme: provider.isDark ? darkTheme : lightTheme,
-                  reverseAnimation: provider.isDark ? true : false,
-                );
-              },
-            );
-          },
-        ),
-      ),
-      Consumer<ArticleViewModel>(
-        builder: (context, provider, child) {
-          return BuildPopupMenuButton(
-            icon: const Icon(
-              Icons.more_vert,
-              color: appMainColor,
-            ),
-            sizeOfIcon: 26.0,
-            popupMenuItems: [
-              _buildPopupMenuItem(
-                value: 'eg',
-                title: 'مصر',
-                widget: Container(
-                  height: 20.0,
-                  width: 30.0,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/eg_flag.png'),
-                      fit: BoxFit.fill,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
+              const SizedBox(height: 5.0),
+              GradientText(
+                'app name'.tr(),
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.orange.shade200,
+                    appMainColor,
+                  ],
                 ),
-              ),
-              _buildPopupMenuItem(
-                value: 'us',
-                title: 'United states',
-                widget: Container(
-                  height: 20.0,
-                  width: 30.0,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/us_flag.png'),
-                      fit: BoxFit.fill,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
-            onSelect: (selectedValue) {
-              if (selectedValue == 'eg') {
-                if (provider.language == 'eg') {
-                  alarmMessage(context, message: 'بالفعل انت تشاهد اخبار مصر');
-                } else {
-                  provider.changeServiceLang(selectedLang: selectedValue);
-                  translator.setNewLanguage(context,
-                      newLanguage: 'ar', restart: true);
-                }
-              } else {
-                if (provider.language == 'us') {
-                  alarmMessage(context,
-                      message:
-                          'Already you are watching the news of the United States of America');
-                } else {
-                  provider.changeServiceLang(selectedLang: selectedValue);
-                  translator.setNewLanguage(context,
-                      newLanguage: 'en', restart: true);
-                }
-              }
-            },
-          );
-        },
+          ),
+        ),
       ),
     ],
     bottom: TabBar(
+      onTap: (int index){
+        context.read<TapBarProvider>().changeTabBarIndex(index);
+      },
       isScrollable: isPortrait ? true : false,
       indicatorColor: appMainColor,
       indicatorWeight: 3.0,
@@ -275,9 +171,9 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
       },
       options: CarouselOptions(
         onPageChanged: (int currentIndex, reason) =>
-            context.read<AppProvider>().changeCarouselSliderIndex(currentIndex),
+            context.read<CarouselSliderProvider>().changeCarouselSliderIndex(currentIndex),
         initialPage: context
-            .select<AppProvider, int>((value) => value.carouselSliderIndex),
+            .select<CarouselSliderProvider, int>((value) => value.carouselSliderIndex),
         height: 160.0,
         disableCenter: true,
         //to control in width
@@ -301,7 +197,7 @@ class BuildAnimatedSmoothIndicator extends StatelessWidget {
     return Center(
       child: AnimatedSmoothIndicator(
         activeIndex: context
-            .select<AppProvider, int>((value) => value.carouselSliderIndex),
+            .select<CarouselSliderProvider, int>((value) => value.carouselSliderIndex),
         count: 5,
         effect: ExpandingDotsEffect(
           dotHeight: 7.0,
@@ -338,7 +234,8 @@ class BuildTopHeadlinesTitle extends StatelessWidget {
 Container buildTopHeadlineTitleDivider() {
   return Container(
     height: 3,
-    width: translator.activeLanguageCode == 'ar' ? 130.0 : 145.0,
+    width: translator.activeLanguageCode == 'ar' ? 130.0 : translator.activeLanguageCode == 'en' ?
+    145.0 : 300.0,
     color: appMainColor,
     margin: const EdgeInsetsDirectional.only(start: 20.0, bottom: 10.0),
   );
@@ -458,47 +355,45 @@ class BuildItemOfList extends StatelessWidget {
                               color: appGreyColor,
                             ),
                             sizeOfIcon: 22.0,
-                            onSelect: (value) {
+                            onSelect: (value) async {
                               if (value == 'visit') {
                                 namedNavigateTo(
                                   context: context,
                                   routeName: WebScreenView.id,
                                   arguments: article.url ?? nullUrl,
                                 );
-                              } else {
-                                List<Article> savedArticles =
-                                    provider.savedArticles;
-                                bool exist = false;
-                                for (var item in savedArticles) {
-                                  if (article.title == item.title) {
-                                    exist = true;
-                                  }
-                                }
-                                if (exist) {
+                              } else if (value == 'save') {
+                                if(provider.savedArticles.length == 6){
                                   alarmMessage(
                                     context,
-                                    message: 'item saved error'.tr(),
+                                    message: 'item saved maximum'.tr(),
                                   );
-                                } else {
-                                  if (savedArticles.length < 20) {
-                                    provider.addNewArticle(
-                                      Article(
-                                          title: article.title,
-                                          url: article.url,
-                                          imageUrl: article.imageUrl,
-                                          publishedAt: article.publishedAt),
-                                    );
-                                    alarmMessage(
-                                      context,
-                                      message: 'item saved'.tr(),
-                                    );
-                                  } else {
-                                    alarmMessage(
-                                      context,
-                                      message: 'item saved maximum'.tr(),
-                                    );
-                                  }
+                                }else{
+                                  provider.addNewArticle(
+                                    Article(
+                                        title: article.title,
+                                        url: article.url,
+                                        imageUrl: article.imageUrl,
+                                        publishedAt: article.publishedAt),
+                                  ).then((value) {
+                                    switch(provider.databaseMessagesStates){
+                                      case DatabaseMessagesStates.Success :
+                                        alarmMessage(
+                                          context,
+                                          message: provider.successMessage,
+                                        );
+                                        break;
+                                      case DatabaseMessagesStates.Error :
+                                        alarmMessage(
+                                          context,
+                                          message: provider.errorMessage,
+                                        );
+                                        break;
+                                    }
+                                  });
                                 }
+                              } else {
+                                await Share.share('${(article.url) ?? ('https://blank.page')}');
                               }
                             },
                             popupMenuItems: [
@@ -515,6 +410,14 @@ class BuildItemOfList extends StatelessWidget {
                                 title: 'save item'.tr(),
                                 widget: Icon(
                                   Icons.bookmark,
+                                  color: appMainColor,
+                                ),
+                              ),
+                              _buildPopupMenuItem(
+                                value: 'share',
+                                title: 'share'.tr(),
+                                widget: Icon(
+                                  Icons.share,
                                   color: appMainColor,
                                 ),
                               ),
@@ -671,11 +574,4 @@ PopupMenuItem<String> _buildPopupMenuItem(
       ],
     ),
   );
-}
-
-void alarmMessage(BuildContext context, {@required String message}) {
-  Toast.show(message, context,
-      duration: Toast.LENGTH_LONG,
-      gravity: Toast.BOTTOM,
-      backgroundRadius: 10.0);
 }

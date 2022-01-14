@@ -34,7 +34,7 @@ class TopHeadlinesTabView extends StatelessWidget {
                   verticalDistance(),
                   BuildHomeViewCarouselSlider(
                       articles: provider.topHeadlinesArticles),
-                  SizedBox(height: 15.0),
+                  const SizedBox(height: 15.0),
                   BuildAnimatedSmoothIndicator(),
                   BuildTopHeadlinesTitle(),
                   buildTopHeadlineTitleDivider(),

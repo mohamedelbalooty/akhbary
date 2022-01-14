@@ -2,13 +2,12 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'multi_providers.dart';
+import 'utils/multi_providers.dart';
 import 'provider/app_theme_provider.dart';
-import 'routes.dart';
-import 'services/local_services/cache_helper.dart';
+import 'utils/routes.dart';
+import 'utils/helper/cache_helper.dart';
 import 'utils/app_constants.dart';
 import 'view/app_components.dart';
-import 'view/layout_view/layout_view.dart';
 import 'view/splash_view.dart';
 
 void main() async {
@@ -17,7 +16,7 @@ void main() async {
   await translator.init(
     localeType: LocalizationDefaultType.device,
     language: setLanguage(),
-    languagesList: <String>['ar', 'en'],
+    languagesList: <String>['ar', 'en', 'fr'],
     assetsDirectory: 'assets/langs/',
   );
   return runApp(
@@ -31,13 +30,14 @@ void main() async {
 }
 
 String setLanguage() {
-  if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == null ||
-      CacheHelper.getStringData(key: sharedPrefsLanguageKey) == false) {
+  if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == null) {
     return 'ar';
   } else if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == 'eg') {
     return 'ar';
-  } else {
+  } else if(CacheHelper.getStringData(key: sharedPrefsLanguageKey) == 'us'){
     return 'en';
+  }else{
+    return 'fr';
   }
 }
 
@@ -50,12 +50,8 @@ class AkhbaryApp extends StatelessWidget {
           : lightTheme,
       builder: (_, myTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'أخباري',
-        initialRoute: CacheHelper.getBooleanData(key: sharedPrefsSplashKey) ==
-                    false ||
-                CacheHelper.getBooleanData(key: sharedPrefsSplashKey) == null
-            ? SplashView.id
-            : LayoutView.id,
+        title: 'Akhbary-أخباري',
+        initialRoute: SplashView.id,
         routes: Routs.routs,
         localizationsDelegates: translator.delegates,
         locale: translator.activeLocale,
@@ -65,3 +61,4 @@ class AkhbaryApp extends StatelessWidget {
     );
   }
 }
+

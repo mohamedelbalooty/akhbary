@@ -1,7 +1,6 @@
 {
   "app name": "Akhbary",
-  "homeAppTitlePart1": "AKHBAR",
-  "homeAppTitlePart2": "Y",
+  "welcome": "Welcome",
   "home tooltip": "Home",
   "search tooltip": "Search",
   "saved tooltip": "Saved list",
@@ -21,7 +20,6 @@
   "just now": "just now",
   "searching for articles": "Searching for articles",
   "saved articles": "Saved articles",
-  "label textField": "Search",
   "fetchDataException": "Oops, an error occurred while connecting to the server",
   "badRequestException": "Oops, invalid request",
   "unauthorisedException": "Oops, unauthorised",
@@ -36,5 +34,14 @@
   "item saved error": "This item saved before",
   "item saved maximum": "You have reached the maximum number of archives !",
   "item deleted": "Article deleted",
-  "no item saved": "No item saved"
+  "no item saved": "No item saved",
+  "privacy": "Privacy and Security",
+  "about": "About",
+  "dark_mode": "Dark mode",
+  "contact_us": "Contact us",
+  "version": "Version",
+  "country": "Country",
+  "setting":"Setting",
+  "about_us": "A news application is an application that will help you look at world news such as Egypt, the United States or France. Through the application, you can keep all the articles that you like. Through the application, you can search for any topic and keep it as well. If you want to read more about the topic, you can visit the source of the news and the publisher for him.",
+  "share": "Share an article"
 }

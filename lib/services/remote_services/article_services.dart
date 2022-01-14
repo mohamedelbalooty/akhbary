@@ -80,7 +80,7 @@ class ArticleServicesImplementation extends ArticleServices {
   Future<Either<List<Article>, ErrorResult>> getArticlesFromSearch(
       {@required String searchValue}) async {
     Uri url = Uri.parse(
-        '$searchBaseUrl?q=$searchValue&from=2021-08-21&sortBy=popularity&apiKey=$apiKey');
+      '$searchBaseUrl?q=$searchValue&apiKey=$apiKey');
     try {
       http.Response response = await http.get(url);
       if (response.statusCode == 200) {

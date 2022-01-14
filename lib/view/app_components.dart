@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:toast/toast.dart';
 
 ///THIS METHOD TO BUILD CUSTOM THEMES
 ThemeData buildAppCustomTheme(
@@ -21,8 +22,8 @@ ThemeData buildAppCustomTheme(
       backgroundColor: appBarColor,
       centerTitle: true,
       elevation: 5.0,
-      iconTheme: IconThemeData(color: appMainColor, size: 26.0),
-      titleTextStyle: TextStyle(
+      iconTheme: const IconThemeData(color: appMainColor, size: 26.0),
+      titleTextStyle: const TextStyle(
         color: appMainColor,
         fontSize: 22.0,
         fontWeight: FontWeight.w500,
@@ -37,7 +38,7 @@ ThemeData buildAppCustomTheme(
         fontFamily: 'Tajawal',
       ),
       unselectedLabelColor: appGreyColor,
-      unselectedLabelStyle: TextStyle(
+      unselectedLabelStyle: const TextStyle(
         fontSize: 13.0,
         fontWeight: FontWeight.w500,
         fontFamily: 'Tajawal',
@@ -175,8 +176,38 @@ class ConvertToTimeAgo {
   }
 }
 
+class GradientText extends StatelessWidget {
+  const GradientText(
+      this.text, {
+        @required this.gradient,
+        this.style,
+      });
+
+  final String text;
+  final TextStyle style;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
+      child: Text(text, style: style),
+    );
+  }
+}
+
 ///NAVIGATE METHOD TO NAVIGATE FOR NEWS SCREEN VIEW
 void namedNavigateTo(
     {@required BuildContext context, @required String routeName, arguments}) {
   Navigator.pushNamed(context, routeName, arguments: arguments);
+}
+
+void alarmMessage(BuildContext context, {@required String message}) {
+  Toast.show(message, context,
+      duration: Toast.LENGTH_LONG,
+      gravity: Toast.BOTTOM,
+      backgroundRadius: 10.0);
 }

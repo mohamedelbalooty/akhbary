@@ -8,8 +8,13 @@ import 'package:provider/provider.dart';
 import '../app_components.dart';
 import 'search_view_components.dart';
 
-class SearchView extends StatelessWidget {
-  final _controller = TextEditingController();
+class SearchView extends StatefulWidget {
+  @override
+  _SearchViewState createState() => _SearchViewState();
+}
+
+class _SearchViewState extends State<SearchView> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,5 +76,10 @@ class SearchView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

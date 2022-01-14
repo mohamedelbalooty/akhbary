@@ -23,7 +23,7 @@ class BuildTextFormField extends StatelessWidget {
           size: 20.0,
           color: greyColor,
         ),
-        labelText: 'label textField'.tr(),
+        labelText: 'search tooltip'.tr(),
         labelStyle: const TextStyle(
           fontSize: 16.0,
           color: greyColor,
