@@ -2,7 +2,7 @@
     package="com.mohamedElbalooty.akhbary">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="Akhbary-أخباري"
+        android:label="Akhbary - أخباري"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

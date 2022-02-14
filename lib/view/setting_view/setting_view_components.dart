@@ -297,8 +297,7 @@ List<BuildContactUsItemWidget> contactItems() {
       title: 'Gmail',
       imageIcon: 'assets/images/gmail.png',
       onClick: () {
-        launchURL(
-            'mailto:mohamedelbalooty123@gmail.com?subject=test%20subject&body=test%20body');
+        launchURL('mailto:mohamedelbalooty123@gmail.com?%20subject&%20body');
       },
     ),
     BuildContactUsItemWidget(

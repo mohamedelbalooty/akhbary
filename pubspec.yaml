@@ -49,7 +49,4 @@ flutter:
   fonts:
     - family: Tajawal
       fonts:
-        - asset: assets/fonts/Tajawal-Light.ttf
-        - asset: assets/fonts/Tajawal-Bold.ttf
-        - asset: assets/fonts/Tajawal-Medium.ttf
         - asset: assets/fonts/Tajawal-Regular.ttf

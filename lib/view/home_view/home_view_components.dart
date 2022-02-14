@@ -31,34 +31,31 @@ AppBar buildHomeViewAppBar(BuildContext context, bool isPortrait) {
     actions: [
       Padding(
         padding: const EdgeInsetsDirectional.only(end: 20.0),
-        child: Hero(
-          tag: 'splash',
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/logo.png',
-                height: 28.0,
-                width: 35.0,
-                fit: BoxFit.fill,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/logo.png',
+              height: 30.0,
+              width: 30.0,
+              fit: BoxFit.fill,
+            ),
+            const SizedBox(height: 5.0),
+            GradientText(
+              'app name'.tr(),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.orange.shade200,
+                  appMainColor,
+                ],
               ),
-              const SizedBox(height: 5.0),
-              GradientText(
-                'app name'.tr(),
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.orange.shade200,
-                    appMainColor,
-                  ],
-                ),
-                style: const TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     ],

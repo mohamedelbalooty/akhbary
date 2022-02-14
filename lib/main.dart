@@ -50,7 +50,7 @@ class AkhbaryApp extends StatelessWidget {
           : lightTheme,
       builder: (_, myTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Akhbary-أخباري',
+        title: 'Akhbary - أخباري',
         initialRoute: SplashView.id,
         routes: Routs.routs,
         localizationsDelegates: translator.delegates,
