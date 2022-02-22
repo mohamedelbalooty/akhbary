@@ -1,15 +1,15 @@
-import 'package:akhbary_app/provider/bottom_nav_bar_provider.dart';
 import 'package:akhbary_app/provider/app_theme_provider.dart';
+import 'package:akhbary_app/provider/bottom_nav_bar_provider.dart';
 import 'package:akhbary_app/provider/tap_bar_provider.dart';
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:akhbary_app/view_model/article_view_model.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../app_components.dart';
 import 'static_views/about_view.dart';
 
@@ -126,9 +126,8 @@ class _BuildSettingItemWidgetState extends State<BuildSettingItemWidget> {
             ),
             const Spacer(),
             widget.isThemeIcon
-                ? ThemeSwitcher(
-                    builder: (context) {
-                      return Consumer<AppThemeProvider>(
+                ?
+            Consumer<AppThemeProvider>(
                         builder: (context, provider, child) {
                           return FlutterSwitch(
                             width: 50.0,
@@ -151,17 +150,10 @@ class _BuildSettingItemWidgetState extends State<BuildSettingItemWidget> {
                             inactiveColor: secondDarkColor,
                             onToggle: (val) {
                               provider.changeAppTheme(switchValue: val);
-                              ThemeSwitcher.of(context).changeTheme(
-                                theme: provider.isDark ? darkTheme : lightTheme,
-                                reverseAnimation:
-                                    provider.isDark ? true : false,
-                              );
                             },
                           );
                         },
-                      );
-                    },
-                  )
+                      )
                 : Icon(
                     Icons.arrow_forward_ios,
                     color: Theme.of(context).tabBarTheme.labelColor,

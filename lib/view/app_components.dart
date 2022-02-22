@@ -1,7 +1,6 @@
 import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:toast/toast.dart';
@@ -178,10 +177,10 @@ class ConvertToTimeAgo {
 
 class GradientText extends StatelessWidget {
   const GradientText(
-      this.text, {
-        @required this.gradient,
-        this.style,
-      });
+    this.text, {
+    @required this.gradient,
+    this.style,
+  });
 
   final String text;
   final TextStyle style;

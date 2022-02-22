@@ -26,7 +26,8 @@ class HomeView extends StatelessWidget {
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return DefaultTabController(
       length: _tabItems.length,
-      initialIndex: context.select<TapBarProvider, int>((value) => value.tabBarIndex),
+      initialIndex:
+          context.select<TapBarProvider, int>((value) => value.tabBarIndex),
       child: Scaffold(
         appBar: buildHomeViewAppBar(
           context,

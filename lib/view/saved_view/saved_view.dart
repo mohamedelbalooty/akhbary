@@ -1,11 +1,10 @@
 import 'package:akhbary_app/states/database_sates.dart';
 import 'package:akhbary_app/view_model/database_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'saved_view_components.dart';
 import '../app_components.dart';
+import 'saved_view_components.dart';
 
 class SavedView extends StatelessWidget {
   @override

@@ -3,8 +3,8 @@ import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:akhbary_app/view_model/database_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import '../app_components.dart';
 import '../web_screen_view.dart';
@@ -23,7 +23,8 @@ class BuildListOfSavedItem extends StatelessWidget {
       ),
       itemBuilder: (_, index) {
         return Padding(
-          padding: const EdgeInsetsDirectional.only(start: 20.0, end: 20.0, top: 15.0),
+          padding: const EdgeInsetsDirectional.only(
+              start: 20.0, end: 20.0, top: 15.0),
           child: BuildItemOfSavedList(
             article: articles[index],
             onDismiss: (DismissDirection direction) {

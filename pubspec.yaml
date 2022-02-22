@@ -16,7 +16,7 @@ dependencies:
   provider: ^5.0.0
   dartz: ^0.9.2
   http: ^0.13.3
-  cached_network_image: ^3.1.0
+  cached_network_image: ^3.2.0
   path: ^1.8.0
   sqflite: ^2.0.0+3
   shared_preferences: ^2.0.7
@@ -26,7 +26,6 @@ dependencies:
   localize_and_translate: ^4.1.1
   carousel_slider: ^4.0.0
   smooth_page_indicator: ^0.2.3
-  animated_theme_switcher: ^2.0.1
   package_info: ^2.0.0
   flutter_switch: ^0.3.2
   url_launcher: ^6.0.10
@@ -35,7 +34,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_lints: ^1.0.0
 flutter:
 
   uses-material-design: true

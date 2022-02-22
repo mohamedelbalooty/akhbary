@@ -1,12 +1,11 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'utils/multi_providers.dart';
 import 'provider/app_theme_provider.dart';
-import 'utils/routes.dart';
-import 'utils/helper/cache_helper.dart';
 import 'utils/app_constants.dart';
+import 'utils/helper/cache_helper.dart';
+import 'utils/multi_providers.dart';
+import 'utils/routes.dart';
 import 'view/app_components.dart';
 import 'view/splash_view.dart';
 
@@ -44,20 +43,17 @@ String setLanguage() {
 class AkhbaryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(
-      initTheme: context.select<AppThemeProvider, bool>((value) => value.isDark)
-          ? darkTheme
-          : lightTheme,
-      builder: (_, myTheme) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Akhbary - أخباري',
-        initialRoute: SplashView.id,
-        routes: Routs.routs,
-        localizationsDelegates: translator.delegates,
-        locale: translator.activeLocale,
-        supportedLocales: translator.locals(),
-        theme: myTheme,
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Akhbary - أخباري',
+      initialRoute: SplashView.id,
+      routes: Routs.routs,
+      localizationsDelegates: translator.delegates,
+      locale: translator.activeLocale,
+      supportedLocales: translator.locals(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: context.select<AppThemeProvider, bool>((value) => value.isDark) ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }

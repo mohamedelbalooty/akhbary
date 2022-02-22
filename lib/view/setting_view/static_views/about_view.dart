@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
