@@ -9,7 +9,6 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../app_components.dart';
 import 'static_views/about_view.dart';
 
@@ -33,7 +32,7 @@ class BuildVersionWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${snapshot.data.version}',
+                  '${snapshot.data!.version}',
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
                     fontSize: 14.0,
@@ -73,13 +72,13 @@ class BuildVersionWidget extends StatelessWidget {
 class BuildSettingItemWidget extends StatefulWidget {
   final IconData icon;
   final String title;
-  final Function onClick;
+  final Function() onClick;
   final bool isThemeIcon;
 
   const BuildSettingItemWidget(
-      {@required this.icon,
-      @required this.title,
-      @required this.onClick,
+      {required this.icon,
+      required this.title,
+      required this.onClick,
       this.isThemeIcon = false});
 
   @override
@@ -137,7 +136,7 @@ class _BuildSettingItemWidgetState extends State<BuildSettingItemWidget> {
                             borderRadius: 30.0,
                             padding: 3.0,
                             toggleColor:
-                                Theme.of(context).appBarTheme.backgroundColor,
+                                Theme.of(context).appBarTheme.backgroundColor!,
                             switchBorder: Border.all(
                               color: appMainColor,
                               width: 2,
@@ -168,10 +167,10 @@ class _BuildSettingItemWidgetState extends State<BuildSettingItemWidget> {
 
 class BuildContactUsItemWidget extends StatelessWidget {
   final String title, imageIcon;
-  final Function onClick;
+  final Function() onClick;
 
   const BuildContactUsItemWidget(
-      {@required this.title, @required this.imageIcon, @required this.onClick});
+      {required this.title, required this.imageIcon, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +321,7 @@ List<BuildBottomSheetItem> bottomSheetItems(BuildContext context) {
       onClick: () {
         if (provider.language == 'eg') {
           Navigator.pop(context);
-          alarmMessage(context, message: 'بالفعل انت تشاهد اخبار مصر');
+          toastMessage(message: 'بالفعل انت تشاهد اخبار مصر');
         } else {
           provider.changeServiceLang(selectedLang: 'eg');
           translator
@@ -340,7 +339,7 @@ List<BuildBottomSheetItem> bottomSheetItems(BuildContext context) {
       onClick: () {
         if (provider.language == 'us') {
           Navigator.pop(context);
-          alarmMessage(context,
+          toastMessage(
               message:
                   'Already you are watching the news of the United States of America');
         } else {
@@ -360,7 +359,7 @@ List<BuildBottomSheetItem> bottomSheetItems(BuildContext context) {
       onClick: () {
         if (provider.language == 'fr') {
           Navigator.pop(context);
-          alarmMessage(context,
+          toastMessage(
               message: "Vous regardez déjà l'actualité de France");
         } else {
           provider.changeServiceLang(selectedLang: 'fr');
@@ -378,10 +377,10 @@ List<BuildBottomSheetItem> bottomSheetItems(BuildContext context) {
 
 class BuildBottomSheetItem extends StatelessWidget {
   final String title, iconImage;
-  final Function onClick;
+  final Function() onClick;
 
   const BuildBottomSheetItem(
-      {@required this.title, @required this.iconImage, @required this.onClick});
+      {required this.title, required this.iconImage, required this.onClick});
 
   @override
   Widget build(BuildContext context) {

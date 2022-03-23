@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
 BottomNavigationBarItem _buildBottomNavigationBarItem({
-  @required int index,
-  @required int selectedIndex,
-  @required IconData selectedIcon,
-  @required IconData unselectedIcon,
-  @required String toolTip,
+  required int index,
+  required int selectedIndex,
+  required IconData selectedIcon,
+  required IconData unselectedIcon,
+  required String toolTip,
 }) {
   return BottomNavigationBarItem(
     label: '',
@@ -34,7 +34,7 @@ BottomNavigationBarItem _buildBottomNavigationBarItem({
 }
 
 List<BottomNavigationBarItem> buildBottomNavigationBarItems({
-  @required int index,
+  required int index,
 }) {
   return [
     _buildBottomNavigationBarItem(
@@ -70,10 +70,10 @@ List<BottomNavigationBarItem> buildBottomNavigationBarItems({
 
 class BuildBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
-  final Function onClick;
+  final Function(int?) onClick;
 
   BuildBottomNavigationBar(
-      {@required this.selectedIndex, @required this.onClick});
+      {required this.selectedIndex, required this.onClick});
 
   @override
   Widget build(BuildContext context) {

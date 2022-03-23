@@ -1,23 +1,21 @@
-import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:akhbary_app/utils/colors.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:toast/toast.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 ///THIS METHOD TO BUILD CUSTOM THEMES
 ThemeData buildAppCustomTheme(
-    {@required Color scaffoldBackgroundColor,
-    @required Color appBarColor,
-    @required Color tabBarLabelColor,
-    @required Color bottomNavBarColor}) {
+    {required Color scaffoldBackgroundColor,
+    required Color appBarColor,
+    required Color tabBarLabelColor,
+    required Color bottomNavBarColor}) {
   return ThemeData(
     primaryColor: appMainColor,
-    primarySwatch: appMainColor,
+    primarySwatch: Colors.deepOrange,
     scaffoldBackgroundColor: scaffoldBackgroundColor,
     fontFamily: 'Tajawal',
     appBarTheme: AppBarTheme(
-      backwardsCompatibility: false,
       backgroundColor: appBarColor,
       centerTitle: true,
       elevation: 5.0,
@@ -72,7 +70,7 @@ final ThemeData darkTheme = buildAppCustomTheme(
     bottomNavBarColor: mainDarkColor);
 
 ///THIS METHOD TO BUILD SHARED APPBAR
-AppBar buildCustomAppBar({@required String title}) {
+AppBar buildCustomAppBar({required String title}) {
   return AppBar(
     centerTitle: true,
     elevation: 5.0,
@@ -88,57 +86,79 @@ class BuildCachedNetworkImage extends StatelessWidget {
   final double height, width;
 
   BuildCachedNetworkImage(
-      {@required this.imageUrl, @required this.height, @required this.width});
+      {required this.imageUrl, required this.height, required this.width});
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      height: height,
-      width: width,
-      imageUrl: imageUrl ?? nullImage,
-      fit: BoxFit.fill,
-      placeholder: (_, url) {
-        return Container(
+    return Stack(
+      children: [
+        SizedBox(
           height: height,
           width: width,
-          color: greyColor,
           child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      },
-      errorWidget: (_, url, error) {
-        return Container(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: const NetworkImage(
-                  'https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2015/12/1450973046wordpress-errors.png'),
-              fit: BoxFit.fill,
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Image.asset(
+                'assets/images/loading.png',
+                color: Colors.grey.shade300,
+              ),
             ),
           ),
-        );
-      },
+        ),
+        FadeInImage.memoryNetwork(
+          height: height,
+          width: width,
+          image: imageUrl,
+          fit: BoxFit.fill,
+          placeholder: kTransparentImage,
+          placeholderErrorBuilder: (_, value, error) {
+            return SizedBox(
+              height: height,
+              width: width,
+              child: const Center(
+                child: Icon(
+                  Icons.error,
+                  size: 28.0,
+                  color: Colors.red,
+                ),
+              ),
+            );
+          },
+          imageErrorBuilder: (_, value, error) {
+            return SizedBox(
+              height: height,
+              width: width,
+              child: const Center(
+                child: Icon(
+                  Icons.error,
+                  size: 28.0,
+                  color: Colors.red,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
 
 ///CUSTOM LOADING WIDGET
 class BuildLoadingWidget extends StatelessWidget {
+  const BuildLoadingWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator.adaptive(),
       ),
     );
   }
 }
 
-///CONSTANT PADDING
-Widget verticalDistance() {
+SizedBox verticalDistance() {
   return const SizedBox(
     height: 15.0,
   );
@@ -178,12 +198,12 @@ class ConvertToTimeAgo {
 class GradientText extends StatelessWidget {
   const GradientText(
     this.text, {
-    @required this.gradient,
+    required this.gradient,
     this.style,
   });
 
   final String text;
-  final TextStyle style;
+  final TextStyle? style;
   final Gradient gradient;
 
   @override
@@ -200,13 +220,18 @@ class GradientText extends StatelessWidget {
 
 ///NAVIGATE METHOD TO NAVIGATE FOR NEWS SCREEN VIEW
 void namedNavigateTo(
-    {@required BuildContext context, @required String routeName, arguments}) {
+    {required BuildContext context, required String routeName, arguments}) {
   Navigator.pushNamed(context, routeName, arguments: arguments);
 }
 
-void alarmMessage(BuildContext context, {@required String message}) {
-  Toast.show(message, context,
-      duration: Toast.LENGTH_LONG,
-      gravity: Toast.BOTTOM,
-      backgroundRadius: 10.0);
+void toastMessage({required String message}) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      textColor: Colors.white,
+      backgroundColor: Colors.black87.withOpacity(0.5),
+      fontSize: 16.0
+  );
 }

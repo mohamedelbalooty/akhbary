@@ -3,7 +3,7 @@ import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class AppThemeProvider extends ChangeNotifier {
-  bool cacheTheme = CacheHelper.getBooleanData(key: sharedPrefsThemeKey);
+  bool? cacheTheme = CacheHelper.getBooleanData(key: sharedPrefsThemeKey);
 
   AppThemeProvider() {
     changeAppTheme(currentTheme: cacheTheme);
@@ -11,7 +11,7 @@ class AppThemeProvider extends ChangeNotifier {
 
   bool isDark = true;
 
-  void changeAppTheme({bool currentTheme, bool switchValue = false}) {
+  void changeAppTheme({bool? currentTheme, bool switchValue = false}) {
     if (currentTheme != null) {
       isDark = currentTheme;
       notifyListeners();

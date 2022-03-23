@@ -13,29 +13,29 @@ class EntertainmentTabView extends StatelessWidget {
     return Consumer<ArticleViewModel>(
       builder: (context, provider, child) {
         if (provider.entertainmentStates == EntertainmentStates.InitialState) {
-          provider.getEntertainmentArticles(country: provider.language);
-          return BuildLoadingWidget();
+          provider.getEntertainmentArticles(country: provider.language!);
+          return const BuildLoadingWidget();
         } else if (provider.entertainmentStates ==
             EntertainmentStates.LoadingState) {
-          return BuildLoadingWidget();
+          return const BuildLoadingWidget();
         } else if (provider.entertainmentStates ==
             EntertainmentStates.LoadedState) {
           return buildTabViewBody(
             refreshKey: refreshKey,
             refresh: () {
               return provider.getEntertainmentArticles(
-                  country: provider.language);
+                  country: provider.language!);
             },
-            articles: provider.entertainmentArticles,
+            articles: provider.entertainmentArticles!,
           );
         } else {
           return BuildErrorWidget(
             refresh: () {
               return provider.getEntertainmentArticles(
-                  country: provider.language);
+                  country: provider.language!);
             },
-            image: provider.entertainmentErrorResult.errorImage,
-            errorMessage: provider.entertainmentErrorResult.errorMessage,
+            image: provider.entertainmentErrorResult!.errorImage,
+            errorMessage: provider.entertainmentErrorResult!.errorMessage,
           );
         }
       },

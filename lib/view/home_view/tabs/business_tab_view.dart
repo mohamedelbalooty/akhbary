@@ -13,24 +13,24 @@ class BusinessTabView extends StatelessWidget {
     return Consumer<ArticleViewModel>(
       builder: (context, provider, child) {
         if (provider.businessStates == BusinessStates.InitialState) {
-          provider.getBusinessArticles(country: provider.language);
-          return BuildLoadingWidget();
+          provider.getBusinessArticles(country: provider.language!);
+          return const BuildLoadingWidget();
         } else if (provider.businessStates == BusinessStates.LoadingState) {
-          return BuildLoadingWidget();
+          return const BuildLoadingWidget();
         } else if (provider.businessStates == BusinessStates.LoadedState) {
           return buildTabViewBody(
               refreshKey: refreshKey,
               refresh: () {
-                return provider.getBusinessArticles(country: provider.language);
+                return provider.getBusinessArticles(country: provider.language!);
               },
-              articles: provider.businessArticles);
+              articles: provider.businessArticles!);
         } else {
           return BuildErrorWidget(
             refresh: () {
-              return provider.getBusinessArticles(country: provider.language);
+              return provider.getBusinessArticles(country: provider.language!);
             },
-            image: provider.businessErrorResult.errorImage,
-            errorMessage: provider.businessErrorResult.errorMessage,
+            image: provider.businessErrorResult!.errorImage,
+            errorMessage: provider.businessErrorResult!.errorMessage,
           );
         }
       },

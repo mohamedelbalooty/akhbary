@@ -14,25 +14,25 @@ class TechTabView extends StatelessWidget {
     return Consumer<ArticleViewModel>(
       builder: (context, provider, child) {
         if (provider.techStates == TechStates.InitialState) {
-          provider.getTechArticles(country: provider.language);
-          return BuildLoadingWidget();
+          provider.getTechArticles(country: provider.language!);
+          return const BuildLoadingWidget();
         } else if (provider.techStates == TechStates.LoadingState) {
-          return BuildLoadingWidget();
+          return const BuildLoadingWidget();
         } else if (provider.techStates == TechStates.LoadedState) {
           return buildTabViewBody(
             refreshKey: refreshKey,
             refresh: () {
-              return provider.getTechArticles(country: provider.language);
+              return provider.getTechArticles(country: provider.language!);
             },
-            articles: provider.techArticles,
+            articles: provider.techArticles!,
           );
         } else {
           return BuildErrorWidget(
             refresh: () {
-              return provider.getTechArticles(country: provider.language);
+              return provider.getTechArticles(country: provider.language!);
             },
-            image: provider.techErrorResult.errorImage,
-            errorMessage: provider.techErrorResult.errorMessage,
+            image: provider.techErrorResult!.errorImage,
+            errorMessage: provider.techErrorResult!.errorMessage,
           );
         }
       },

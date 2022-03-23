@@ -20,15 +20,15 @@ class DatabaseViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  DatabaseMessagesStates databaseMessagesStates;
+  DatabaseMessagesStates? databaseMessagesStates;
 
-  String _successMessage;
+  String? _successMessage;
 
-  String get successMessage => _successMessage;
+  String? get successMessage => _successMessage;
 
-  String _errorMessage;
+  String? _errorMessage;
 
-  String get errorMessage => _errorMessage;
+  String? get errorMessage => _errorMessage;
 
   Future<void> addNewArticle(Article article) async {
     for (int i = 0; i < _savedArticles.length; i++) {

@@ -24,10 +24,10 @@ class LayoutView extends StatelessWidget {
       bottomNavigationBar: BuildBottomNavigationBar(
         selectedIndex: context.select<BottomNavParProvider, int>(
             (value) => value.bottomNavBarIndex),
-        onClick: (int currentIndex) {
+        onClick: (int? currentIndex) {
           context
               .read<BottomNavParProvider>()
-              .changeBottomNavBarIndex(currentIndex);
+              .changeBottomNavBarIndex(currentIndex!);
         },
       ),
     );

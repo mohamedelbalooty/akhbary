@@ -3,7 +3,6 @@ import 'package:akhbary_app/model/article.dart';
 import 'package:akhbary_app/provider/carousel_slider_provider.dart';
 import 'package:akhbary_app/provider/tap_bar_provider.dart';
 import 'package:akhbary_app/states/database_sates.dart';
-import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:akhbary_app/view_model/database_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -101,7 +100,7 @@ Tab _buildTabItem(String tabTitle) {
 class BuildHomeViewCarouselSlider extends StatelessWidget {
   final List<Article> articles;
 
-  BuildHomeViewCarouselSlider({@required this.articles});
+  BuildHomeViewCarouselSlider({required this.articles});
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +112,7 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
             namedNavigateTo(
               context: context,
               routeName: WebScreenView.id,
-              arguments: articles[index].url ?? nullUrl,
+              arguments: articles[index].url,
             );
           },
           child: Container(
@@ -140,8 +139,7 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
                       Text(
                         '${ConvertToTimeAgo.convertToTimeAgo(
                               DateTime.parse(articles[index].publishedAt),
-                            )}' ??
-                            '${ConvertToTimeAgo.convertToTimeAgo(nullDate)}',
+                            )}',
                         style: TextStyle(
                           color: whiteColor,
                           fontSize: 14.0,
@@ -149,7 +147,7 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        articles[index].title ?? 'title'.tr(),
+                        articles[index].title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: TextStyle(
@@ -199,7 +197,7 @@ class BuildAnimatedSmoothIndicator extends StatelessWidget {
         effect: ExpandingDotsEffect(
           dotHeight: 7.0,
           dotWidth: 7.0,
-          dotColor: Theme.of(context).appBarTheme.backgroundColor,
+          dotColor: Theme.of(context).appBarTheme.backgroundColor!,
           activeDotColor: appMainColor,
           spacing: 8.0,
         ),
@@ -239,9 +237,9 @@ Container buildTopHeadlineTitleDivider() {
 }
 
 Widget buildTabViewBody(
-    {@required refreshKey,
-    @required Function refresh,
-    @required List<Article> articles}) {
+    {required refreshKey,
+    required Future Function() refresh,
+    required List<Article> articles}) {
   return BuildPlatformRefreshIndicator(
     refreshKey: refreshKey,
     onRefresh: refresh,
@@ -264,7 +262,7 @@ class BuildListOfItem extends StatelessWidget {
   final List<Article> articles;
   final int articlesNumber;
 
-  BuildListOfItem({@required this.articles, @required this.articlesNumber});
+  BuildListOfItem({required this.articles, required this.articlesNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +285,7 @@ class BuildListOfItem extends StatelessWidget {
 class BuildItemOfList extends StatelessWidget {
   final Article article;
 
-  BuildItemOfList({@required this.article});
+  BuildItemOfList({required this.article});
 
   @override
   Widget build(BuildContext context) {
@@ -320,7 +318,7 @@ class BuildItemOfList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    article.title ?? 'null title'.tr(),
+                    article.title,
                     style: TextStyle(
                       color: Theme.of(context).tabBarTheme.labelColor,
                       fontSize: 18.0,
@@ -335,8 +333,7 @@ class BuildItemOfList extends StatelessWidget {
                       Text(
                         '${ConvertToTimeAgo.convertToTimeAgo(
                               DateTime.parse(article.publishedAt),
-                            )}' ??
-                            '${ConvertToTimeAgo.convertToTimeAgo(nullDate)}',
+                            )}',
                         style: TextStyle(
                           color: appGreyColor,
                           fontSize: 16.0,
@@ -357,12 +354,11 @@ class BuildItemOfList extends StatelessWidget {
                                 namedNavigateTo(
                                   context: context,
                                   routeName: WebScreenView.id,
-                                  arguments: article.url ?? nullUrl,
+                                  arguments: article.url,
                                 );
                               } else if (value == 'save') {
                                 if(provider.savedArticles.length == 6){
-                                  alarmMessage(
-                                    context,
+                                  toastMessage(
                                     message: 'item saved maximum'.tr(),
                                   );
                                 }else{
@@ -373,24 +369,22 @@ class BuildItemOfList extends StatelessWidget {
                                         imageUrl: article.imageUrl,
                                         publishedAt: article.publishedAt),
                                   ).then((value) {
-                                    switch(provider.databaseMessagesStates){
+                                    switch(provider.databaseMessagesStates!){
                                       case DatabaseMessagesStates.Success :
-                                        alarmMessage(
-                                          context,
-                                          message: provider.successMessage,
+                                        toastMessage(
+                                          message: provider.successMessage!,
                                         );
                                         break;
                                       case DatabaseMessagesStates.Error :
-                                        alarmMessage(
-                                          context,
-                                          message: provider.errorMessage,
+                                        toastMessage(
+                                          message: provider.errorMessage!,
                                         );
                                         break;
                                     }
                                   });
                                 }
                               } else {
-                                await Share.share('${(article.url) ?? ('https://blank.page')}');
+                                await Share.share('${(article.url)}');
                               }
                             },
                             popupMenuItems: [
@@ -449,12 +443,12 @@ class BuildItemOfList extends StatelessWidget {
 class BuildErrorWidget extends StatelessWidget {
   final refreshKey = GlobalKey<RefreshIndicatorState>();
   final String image, errorMessage;
-  final Function refresh;
+  final Future Function() refresh;
 
   BuildErrorWidget(
-      {@required this.refresh,
-      @required this.image,
-      @required this.errorMessage});
+      {required this.refresh,
+      required this.image,
+      required this.errorMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -476,7 +470,7 @@ class BuildErrorWidget extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
               Text(
-                errorMessage ?? 'null error'.tr(),
+                errorMessage,
                 style: TextStyle(
                   color: Theme.of(context).tabBarTheme.labelColor,
                   fontSize: 22.0,
@@ -497,9 +491,9 @@ class BuildPlatformRefreshIndicator extends StatelessWidget {
   final Widget child;
 
   BuildPlatformRefreshIndicator(
-      {@required this.refreshKey,
-      @required this.onRefresh,
-      @required this.child});
+      {required this.refreshKey,
+      required this.onRefresh,
+      required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -529,14 +523,14 @@ class BuildPlatformRefreshIndicator extends StatelessWidget {
 class BuildPopupMenuButton extends StatelessWidget {
   final Icon icon;
   final double sizeOfIcon;
-  final Function onSelect;
+  final Function(dynamic) onSelect;
   final List<PopupMenuItem> popupMenuItems;
 
   BuildPopupMenuButton(
-      {@required this.icon,
-      @required this.sizeOfIcon,
-      @required this.onSelect,
-      @required this.popupMenuItems});
+      {required this.icon,
+      required this.sizeOfIcon,
+      required this.onSelect,
+      required this.popupMenuItems});
 
   @override
   Widget build(BuildContext context) {
@@ -557,7 +551,7 @@ class BuildPopupMenuButton extends StatelessWidget {
 }
 
 PopupMenuItem<String> _buildPopupMenuItem(
-    {@required String value, @required String title, Widget widget}) {
+    {required String value, required String title, Widget? widget}) {
   return PopupMenuItem(
     value: value,
     child: Row(
@@ -567,7 +561,7 @@ PopupMenuItem<String> _buildPopupMenuItem(
           title,
           style: TextStyle(color: appGreyColor, fontWeight: FontWeight.w500),
         ),
-        widget,
+        widget!,
       ],
     ),
   );

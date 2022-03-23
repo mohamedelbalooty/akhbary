@@ -1,18 +1,16 @@
 import 'package:akhbary_app/model/article.dart';
-import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:akhbary_app/view_model/database_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 import '../app_components.dart';
 import '../web_screen_view.dart';
 
 class BuildListOfSavedItem extends StatelessWidget {
   final List<Article> articles;
 
-  BuildListOfSavedItem({@required this.articles});
+  BuildListOfSavedItem({required this.articles});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +29,7 @@ class BuildListOfSavedItem extends StatelessWidget {
               context
                   .read<DatabaseViewModel>()
                   .deleteSelectedArticle(articles[index]);
-              Toast.show('item deleted'.tr(), context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              toastMessage(message: 'item deleted'.tr());
             },
           ),
         );
@@ -43,9 +40,9 @@ class BuildListOfSavedItem extends StatelessWidget {
 
 class BuildItemOfSavedList extends StatelessWidget {
   final Article article;
-  final Function onDismiss;
+  final DismissDirectionCallback? onDismiss;
 
-  BuildItemOfSavedList({@required this.article, @required this.onDismiss});
+  BuildItemOfSavedList({required this.article, required this.onDismiss});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,7 @@ class BuildItemOfSavedList extends StatelessWidget {
         namedNavigateTo(
             context: context,
             routeName: WebScreenView.id,
-            arguments: article.url ?? nullUrl);
+            arguments: article.url);
       },
       child: Dismissible(
         key: UniqueKey(),
@@ -117,8 +114,7 @@ class BuildItemOfSavedList extends StatelessWidget {
                             child: Text(
                               '${ConvertToTimeAgo.convertToTimeAgo(
                                     DateTime.parse(article.publishedAt),
-                                  )}' ??
-                                  '${ConvertToTimeAgo.convertToTimeAgo(nullDate)}',
+                                  )}',
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .appBarTheme
@@ -129,7 +125,7 @@ class BuildItemOfSavedList extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          article.title ?? 'null title'.tr(),
+                          article.title,
                           style: TextStyle(
                             color: Theme.of(context).tabBarTheme.labelColor,
                             fontSize: 18.0,
@@ -163,9 +159,9 @@ class BuildItemOfSavedList extends StatelessWidget {
   }
 
   Container buildDirectionDismissibleBackground(BuildContext context,
-      {@required AlignmentGeometry alignment,
-      @required double startPadding,
-      @required double endPadding}) {
+      {required AlignmentGeometry alignment,
+      required double startPadding,
+      required double endPadding}) {
     return Container(
       alignment: alignment,
       decoration: BoxDecoration(

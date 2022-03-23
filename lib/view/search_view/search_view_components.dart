@@ -4,15 +4,15 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 
 class BuildTextFormField extends StatelessWidget {
   final TextEditingController controller;
-  final Function changed;
+  final Function(String?) changed;
 
-  BuildTextFormField({@required this.changed, @required this.controller});
+  BuildTextFormField({required this.changed, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: this.controller,
-      onChanged: this.changed,
+      controller: controller,
+      onChanged: changed,
       cursorColor: greyColor,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -87,7 +87,7 @@ class BuildSearchEmptyWidget extends StatelessWidget {
 class BuildSearchErrorWidget extends StatelessWidget {
   final String image, errorMessage;
 
-  BuildSearchErrorWidget({@required this.image, @required this.errorMessage});
+  BuildSearchErrorWidget({required this.image, required this.errorMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,7 @@ class BuildSearchErrorWidget extends StatelessWidget {
               fit: BoxFit.fill,
             ),
             Text(
-              errorMessage ?? 'null error'.tr(),
+              errorMessage,
               style: TextStyle(
                 color: blackColor,
                 fontSize: 22.0,

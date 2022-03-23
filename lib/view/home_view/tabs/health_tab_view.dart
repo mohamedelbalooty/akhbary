@@ -13,25 +13,25 @@ class HealthTabView extends StatelessWidget {
     return Consumer<ArticleViewModel>(
       builder: (context, provider, child) {
         if (provider.healthStates == HealthStates.InitialState) {
-          provider.getHealthArticles(country: provider.language);
-          return BuildLoadingWidget();
+          provider.getHealthArticles(country: provider.language!);
+          return const BuildLoadingWidget();
         } else if (provider.healthStates == HealthStates.LoadingState) {
-          return BuildLoadingWidget();
+          return const BuildLoadingWidget();
         } else if (provider.healthStates == HealthStates.LoadedState) {
           return buildTabViewBody(
             refreshKey: refreshKey,
             refresh: () {
-              return provider.getHealthArticles(country: provider.language);
+              return provider.getHealthArticles(country: provider.language!);
             },
-            articles: provider.healthArticles,
+            articles: provider.healthArticles!,
           );
         } else {
           return BuildErrorWidget(
             refresh: () {
-              return provider.getHealthArticles(country: provider.language);
+              return provider.getHealthArticles(country: provider.language!);
             },
-            image: provider.healthErrorResult.errorImage,
-            errorMessage: provider.healthErrorResult.errorMessage,
+            image: provider.healthErrorResult!.errorImage,
+            errorMessage: provider.healthErrorResult!.errorMessage,
           );
         }
       },

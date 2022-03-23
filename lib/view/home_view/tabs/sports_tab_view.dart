@@ -14,25 +14,25 @@ class SportsTabView extends StatelessWidget {
     return Consumer<ArticleViewModel>(
       builder: (context, provider, child) {
         if (provider.sportsStates == SportsStates.InitialState) {
-          provider.getSportsArticles(country: provider.language);
-          return BuildLoadingWidget();
+          provider.getSportsArticles(country: provider.language!);
+          return const BuildLoadingWidget();
         } else if (provider.sportsStates == SportsStates.LoadingState) {
-          return BuildLoadingWidget();
+          return const BuildLoadingWidget();
         } else if (provider.sportsStates == SportsStates.LoadedState) {
           return buildTabViewBody(
             refreshKey: refreshKey,
             refresh: () {
-              return provider.getSportsArticles(country: provider.language);
+              return provider.getSportsArticles(country: provider.language!);
             },
-            articles: provider.sportsArticles,
+            articles: provider.sportsArticles!,
           );
         } else {
           return BuildErrorWidget(
             refresh: () {
-              return provider.getSportsArticles(country: provider.language);
+              return provider.getSportsArticles(country: provider.language!);
             },
-            image: provider.techErrorResult.errorImage,
-            errorMessage: provider.techErrorResult.errorMessage,
+            image: provider.techErrorResult!.errorImage,
+            errorMessage: provider.techErrorResult!.errorMessage,
           );
         }
       },

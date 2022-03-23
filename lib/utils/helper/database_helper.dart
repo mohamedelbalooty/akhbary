@@ -11,9 +11,9 @@ class DatabaseHelper {
   DatabaseHelper._();
 
   static final DatabaseHelper dbHelper = DatabaseHelper._();
-  static Database _database;
+  static Database? _database;
 
-  Future<Database> get database async {
+  Future<Database?> get database async {
     if (_database != null) return _database;
     _database = await initializeDatabase();
     return _database;
@@ -39,14 +39,14 @@ class DatabaseHelper {
   /// INSERT IN DATABASE
   Future<void> insertArticle(Article article) async {
     var databaseClient = await database;
-    await databaseClient.insert(dbTableName, article.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.ignore);
+    await databaseClient!.insert(dbTableName, article.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   /// READ FROM DATABASE
   Future<List<Article>> getAllSavedArticles() async {
     var databaseClient = await database;
-    List<Map> jsonData = await databaseClient.query(dbTableName);
+    List<Map<String, dynamic>> jsonData = await databaseClient!.query(dbTableName);
     return jsonData.isNotEmpty
         ? jsonData
             .map(
@@ -59,7 +59,7 @@ class DatabaseHelper {
   /// DELETE FROM DATABASE
   Future<void> deleteArticle(String publishedAt) async {
     var databaseClient = await database;
-    await databaseClient.delete(dbTableName,
+    await databaseClient!.delete(dbTableName,
         where: '$dbColumnPublishedAt = ?', whereArgs: [publishedAt]);
   }
 }

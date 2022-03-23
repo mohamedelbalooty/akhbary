@@ -2,7 +2,6 @@ import 'package:akhbary_app/core/status_code_errors.dart';
 import 'package:akhbary_app/model/article.dart';
 import 'package:akhbary_app/model/error_result.dart';
 import 'package:akhbary_app/utils/urls.dart';
-import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -11,17 +10,17 @@ import 'dart:io';
 
 abstract class ArticleServices {
   ///THIS ABSTRACT CLASS FOR SHOWING SERVICES METHODS
-  Future<Either<List<Article>, ErrorResult>> getTopHeadlineArticles();
+  Future<Either<List<Article>, ErrorResult>> getTopHeadlineArticles({required String country});
 
-  Future<Either<List<Article>, ErrorResult>> getArticlesByCategory();
+  Future<Either<List<Article>, ErrorResult>> getArticlesByCategory({required String country, required String category});
 
-  Future<Either<List<Article>, ErrorResult>> getArticlesFromSearch();
+  Future<Either<List<Article>, ErrorResult>> getArticlesFromSearch({required String searchValue});
 }
 
 class ArticleServicesImplementation extends ArticleServices {
   @override
   Future<Either<List<Article>, ErrorResult>> getTopHeadlineArticles(
-      {@required String country}) async {
+      {required String country}) async {
     Uri url = Uri.parse('$baseUrl?country=$country&apiKey=$apiKey');
     try {
       http.Response response = await http.get(url);
@@ -49,7 +48,7 @@ class ArticleServicesImplementation extends ArticleServices {
 
   @override
   Future<Either<List<Article>, ErrorResult>> getArticlesByCategory(
-      {@required String country, @required String category}) async {
+      {required String country, required String category}) async {
     Uri url = Uri.parse(
         '$baseUrl?country=$country&category=$category&apiKey=$apiKey');
     try {
@@ -78,7 +77,7 @@ class ArticleServicesImplementation extends ArticleServices {
 
   @override
   Future<Either<List<Article>, ErrorResult>> getArticlesFromSearch(
-      {@required String searchValue}) async {
+      {required String searchValue}) async {
     Uri url = Uri.parse(
       '$searchBaseUrl?q=$searchValue&apiKey=$apiKey');
     try {

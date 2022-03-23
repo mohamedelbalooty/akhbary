@@ -59,7 +59,7 @@ class AboutView extends StatelessWidget {
                         const SizedBox(height: 5.0),
                         Image.asset(
                           'assets/images/logo.png',
-                          height: 90.0,
+                          height: 100.0,
                           width: 110.0,
                           fit: BoxFit.fill,
                         ),

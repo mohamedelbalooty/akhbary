@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:akhbary_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-
 import 'app_components.dart';
 import 'layout_view/layout_view.dart';
 
@@ -15,7 +13,7 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  Timer timer;
+  late Timer timer;
 
   @override
   void initState() {

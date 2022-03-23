@@ -7,15 +7,15 @@ import 'package:akhbary_app/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 
 class ArticleViewModel extends ChangeNotifier {
-  String cacheLang = CacheHelper.getStringData(key: sharedPrefsLanguageKey);
+  String? cacheLang = CacheHelper.getStringData(key: sharedPrefsLanguageKey);
 
-  TopHeadlinesStates topHeadlinesStates;
-  BusinessStates businessStates;
-  TechStates techStates;
-  SportsStates sportsStates;
-  HealthStates healthStates;
-  EntertainmentStates entertainmentStates;
-  SearchingStates searchingStates;
+  late TopHeadlinesStates topHeadlinesStates;
+  late BusinessStates businessStates;
+  late TechStates techStates;
+  late SportsStates sportsStates;
+  late HealthStates healthStates;
+  late EntertainmentStates entertainmentStates;
+  late SearchingStates searchingStates;
 
   ///INITIALIZE STATES VALUE
   ArticleViewModel() {
@@ -29,15 +29,15 @@ class ArticleViewModel extends ChangeNotifier {
     searchingStates = SearchingStates.InitialState;
   }
 
-  String language;
+  String? language;
 
-  void changeServiceLang({String selectedLang = 'eg', String currentLang}) {
+  void changeServiceLang({String selectedLang = 'eg', String? currentLang}) {
     if (currentLang != null) {
-      language = cacheLang;
+      language = cacheLang!;
       notifyListeners();
     } else {
       language = selectedLang;
-      CacheHelper.setStringData(key: sharedPrefsLanguageKey, value: language);
+      CacheHelper.setStringData(key: sharedPrefsLanguageKey, value: language!);
       changeServicesStates();
       notifyListeners();
     }
@@ -52,54 +52,54 @@ class ArticleViewModel extends ChangeNotifier {
     entertainmentStates = EntertainmentStates.InitialState;
   }
 
-  List<Article> get topHeadlinesArticles => _topHeadlinesArticles;
+  List<Article>? get topHeadlinesArticles => _topHeadlinesArticles;
 
-  List<Article> get businessArticles => _businessArticles;
+  List<Article>? get businessArticles => _businessArticles;
 
-  List<Article> get techArticles => _techArticles;
+  List<Article>? get techArticles => _techArticles;
 
-  List<Article> get sportsArticles => _sportsArticles;
+  List<Article>? get sportsArticles => _sportsArticles;
 
-  List<Article> get healthArticles => _healthArticles;
+  List<Article>? get healthArticles => _healthArticles;
 
-  List<Article> get entertainmentArticles => _entertainmentArticles;
+  List<Article>? get entertainmentArticles => _entertainmentArticles;
 
-  List<Article> get searchArticles => _searchArticles;
+  List<Article>? get searchArticles => _searchArticles;
 
-  ErrorResult get topHeadlineErrorResult => _topHeadlineErrorResult;
+  ErrorResult? get topHeadlineErrorResult => _topHeadlineErrorResult;
 
-  ErrorResult get businessErrorResult => _businessErrorResult;
+  ErrorResult? get businessErrorResult => _businessErrorResult;
 
-  ErrorResult get techErrorResult => _techErrorResult;
+  ErrorResult? get techErrorResult => _techErrorResult;
 
-  ErrorResult get sportsErrorResult => _sportsErrorResult;
+  ErrorResult? get sportsErrorResult => _sportsErrorResult;
 
-  ErrorResult get healthErrorResult => _healthErrorResult;
+  ErrorResult? get healthErrorResult => _healthErrorResult;
 
-  ErrorResult get entertainmentErrorResult => _entertainmentErrorResult;
+  ErrorResult? get entertainmentErrorResult => _entertainmentErrorResult;
 
-  ErrorResult get searchErrorResult => _searchErrorResult;
+  ErrorResult? get searchErrorResult => _searchErrorResult;
 
-  List<Article> _topHeadlinesArticles;
-  List<Article> _businessArticles;
-  List<Article> _techArticles;
-  List<Article> _sportsArticles;
-  List<Article> _healthArticles;
-  List<Article> _entertainmentArticles;
-  List<Article> _searchArticles;
+  List<Article>? _topHeadlinesArticles;
+  List<Article>? _businessArticles;
+  List<Article>? _techArticles;
+  List<Article>? _sportsArticles;
+  List<Article>? _healthArticles;
+  List<Article>? _entertainmentArticles;
+  List<Article>? _searchArticles;
 
-  ErrorResult _topHeadlineErrorResult;
-  ErrorResult _businessErrorResult;
-  ErrorResult _techErrorResult;
-  ErrorResult _sportsErrorResult;
-  ErrorResult _healthErrorResult;
-  ErrorResult _entertainmentErrorResult;
-  ErrorResult _searchErrorResult;
+  ErrorResult? _topHeadlineErrorResult;
+  ErrorResult? _businessErrorResult;
+  ErrorResult? _techErrorResult;
+  ErrorResult? _sportsErrorResult;
+  ErrorResult? _healthErrorResult;
+  ErrorResult? _entertainmentErrorResult;
+  ErrorResult? _searchErrorResult;
 
   ArticleServicesImplementation _articleServicesImplementation =
       ArticleServicesImplementation();
 
-  Future<void> getTopHeadlineArticles({@required String country}) async {
+  Future<void> getTopHeadlineArticles({required String country}) async {
     topHeadlinesStates = TopHeadlinesStates.LoadingState;
     await _articleServicesImplementation
         .getTopHeadlineArticles(country: country)
@@ -120,7 +120,7 @@ class ArticleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getBusinessArticles({@required String country}) async {
+  Future<void> getBusinessArticles({required String country}) async {
     businessStates = BusinessStates.LoadingState;
     await _articleServicesImplementation
         .getArticlesByCategory(country: country, category: 'business')
@@ -136,7 +136,7 @@ class ArticleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getTechArticles({@required String country}) async {
+  Future<void> getTechArticles({required String country}) async {
     techStates = TechStates.LoadingState;
     await _articleServicesImplementation
         .getArticlesByCategory(country: country, category: 'technology')
@@ -152,7 +152,7 @@ class ArticleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getSportsArticles({@required String country}) async {
+  Future<void> getSportsArticles({required String country}) async {
     sportsStates = SportsStates.LoadingState;
     await _articleServicesImplementation
         .getArticlesByCategory(country: country, category: 'sports')
@@ -168,7 +168,7 @@ class ArticleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getHealthArticles({@required String country}) async {
+  Future<void> getHealthArticles({required String country}) async {
     healthStates = HealthStates.LoadingState;
     await _articleServicesImplementation
         .getArticlesByCategory(country: country, category: 'health')
@@ -184,7 +184,7 @@ class ArticleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getEntertainmentArticles({@required String country}) async {
+  Future<void> getEntertainmentArticles({required String country}) async {
     entertainmentStates = EntertainmentStates.LoadingState;
     await _articleServicesImplementation
         .getArticlesByCategory(country: country, category: 'entertainment')
@@ -200,7 +200,7 @@ class ArticleViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getArticlesFromSearching({@required String searchValue}) async {
+  Future<void> getArticlesFromSearching({required String searchValue}) async {
     searchingStates = SearchingStates.LoadingState;
     notifyListeners();
     if (searchValue.isNotEmpty) {

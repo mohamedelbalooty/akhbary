@@ -22,7 +22,7 @@ void main() async {
     MultiProvider(
       providers: MultiProviders.providers,
       child: LocalizedApp(
-        child: AkhbaryApp(),
+        child: const AkhbaryApp(),
       ),
     ),
   );
@@ -41,6 +41,7 @@ String setLanguage() {
 }
 
 class AkhbaryApp extends StatelessWidget {
+  const AkhbaryApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

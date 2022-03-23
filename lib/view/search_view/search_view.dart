@@ -28,9 +28,9 @@ class _SearchViewState extends State<SearchView> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: BuildTextFormField(
               controller: _controller,
-              changed: (String value) {
+              changed: (String? value) {
                 Provider.of<ArticleViewModel>(context, listen: false)
-                    .getArticlesFromSearching(searchValue: value);
+                    .getArticlesFromSearching(searchValue: value!);
               },
             ),
           ),
@@ -47,7 +47,7 @@ class _SearchViewState extends State<SearchView> {
                 return BuildSearchInitialWidget();
               } else if (provider.searchingStates ==
                   SearchingStates.LoadingState) {
-                return Expanded(
+                return const Expanded(
                   child: BuildLoadingWidget(),
                 );
               } else if (provider.searchingStates ==
@@ -57,7 +57,7 @@ class _SearchViewState extends State<SearchView> {
                     children: [
                       BuildListOfItem(
                         articlesNumber: 0,
-                        articles: provider.searchArticles,
+                        articles: provider.searchArticles!,
                       ),
                     ],
                   ),
@@ -67,8 +67,8 @@ class _SearchViewState extends State<SearchView> {
                 return BuildSearchEmptyWidget();
               } else {
                 return BuildSearchErrorWidget(
-                  errorMessage: provider.searchErrorResult.errorMessage,
-                  image: provider.searchErrorResult.errorImage,
+                  errorMessage: provider.searchErrorResult!.errorMessage,
+                  image: provider.searchErrorResult!.errorImage,
                 );
               }
             },

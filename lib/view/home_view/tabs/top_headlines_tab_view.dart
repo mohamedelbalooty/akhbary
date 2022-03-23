@@ -13,18 +13,18 @@ class TopHeadlinesTabView extends StatelessWidget {
     return Consumer<ArticleViewModel>(
       builder: (context, provider, child) {
         if (provider.topHeadlinesStates == TopHeadlinesStates.InitialState) {
-          provider.getTopHeadlineArticles(country: provider.language);
-          return BuildLoadingWidget();
+          provider.getTopHeadlineArticles(country: provider.language!);
+          return const BuildLoadingWidget();
         } else if (provider.topHeadlinesStates ==
             TopHeadlinesStates.LoadingState) {
-          return BuildLoadingWidget();
+          return const BuildLoadingWidget();
         } else if (provider.topHeadlinesStates ==
             TopHeadlinesStates.LoadedState) {
           return BuildPlatformRefreshIndicator(
             refreshKey: refreshKey,
             onRefresh: () {
               return provider.getTopHeadlineArticles(
-                  country: provider.language);
+                  country: provider.language!);
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
@@ -33,13 +33,13 @@ class TopHeadlinesTabView extends StatelessWidget {
                 children: [
                   verticalDistance(),
                   BuildHomeViewCarouselSlider(
-                      articles: provider.topHeadlinesArticles),
+                      articles: provider.topHeadlinesArticles!),
                   const SizedBox(height: 15.0),
                   BuildAnimatedSmoothIndicator(),
                   BuildTopHeadlinesTitle(),
                   buildTopHeadlineTitleDivider(),
                   BuildListOfItem(
-                    articles: provider.topHeadlinesArticles,
+                    articles: provider.topHeadlinesArticles!,
                     articlesNumber: 5,
                   ),
                 ],
@@ -50,10 +50,10 @@ class TopHeadlinesTabView extends StatelessWidget {
           return BuildErrorWidget(
             refresh: () {
               return provider.getTopHeadlineArticles(
-                  country: provider.language);
+                  country: provider.language!);
             },
-            image: provider.topHeadlineErrorResult.errorImage,
-            errorMessage: provider.topHeadlineErrorResult.errorMessage,
+            image: provider.topHeadlineErrorResult!.errorImage,
+            errorMessage: provider.topHeadlineErrorResult!.errorMessage,
           );
         }
       },
