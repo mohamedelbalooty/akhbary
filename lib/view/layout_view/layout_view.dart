@@ -10,11 +10,13 @@ import 'layout_view_components.dart';
 class LayoutView extends StatelessWidget {
   static const String id = 'LayoutView';
   final List<Widget> _layoutScreens = [
-    HomeView(),
-    SearchView(),
-    SavedView(),
-    SettingView(),
+    const HomeView(),
+    const SearchView(),
+    const SavedView(),
+    const SettingView(),
   ];
+
+  LayoutView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ class DatabaseViewModel extends ChangeNotifier {
   List<Article> get savedArticles => _savedArticles;
   List<Article> _savedArticles = [];
 
-  DatabaseHelper _databaseHelper = DatabaseHelper.dbHelper;
+  final DatabaseHelper _databaseHelper = DatabaseHelper.dbHelper;
 
   Future<void> getSavedArticlesFromDatabase() async {
     await _databaseHelper.getAllSavedArticles().then((value) {

@@ -21,7 +21,7 @@ BottomNavigationBarItem _buildBottomNavigationBarItem({
             height: 2.5,
             width: 35,
             color: index == selectedIndex ? appMainColor : appGreyColor,
-            margin: EdgeInsets.only(bottom: 7.0),
+            margin: const EdgeInsets.only(bottom: 7.0),
           ),
           Icon(
             index == selectedIndex ? selectedIcon : unselectedIcon,
@@ -72,8 +72,8 @@ class BuildBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int?) onClick;
 
-  BuildBottomNavigationBar(
-      {required this.selectedIndex, required this.onClick});
+  const BuildBottomNavigationBar(
+      {Key? key, required this.selectedIndex, required this.onClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

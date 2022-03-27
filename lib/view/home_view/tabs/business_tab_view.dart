@@ -6,7 +6,8 @@ import '../../app_components.dart';
 import '../home_view_components.dart';
 
 class BusinessTabView extends StatelessWidget {
-  final refreshKey = GlobalKey<RefreshIndicatorState>();
+
+  const BusinessTabView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class BusinessTabView extends StatelessWidget {
           return const BuildLoadingWidget();
         } else if (provider.businessStates == BusinessStates.LoadedState) {
           return buildTabViewBody(
-              refreshKey: refreshKey,
+              refreshKey: GlobalKey<RefreshIndicatorState>(),
               refresh: () {
                 return provider.getBusinessArticles(country: provider.language!);
               },

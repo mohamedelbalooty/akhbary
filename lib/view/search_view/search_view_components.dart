@@ -6,7 +6,7 @@ class BuildTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final Function(String?) changed;
 
-  BuildTextFormField({required this.changed, required this.controller});
+  const BuildTextFormField({Key? key, required this.changed, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +39,14 @@ class BuildTextFormField extends StatelessWidget {
   OutlineInputBorder _buildTextFieldBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
-      borderSide: BorderSide(color: appGreyColor),
+      borderSide: const BorderSide(color: appGreyColor),
     );
   }
 }
 
 class BuildSearchInitialWidget extends StatelessWidget {
+  const BuildSearchInitialWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -65,6 +67,8 @@ class BuildSearchInitialWidget extends StatelessWidget {
 }
 
 class BuildSearchEmptyWidget extends StatelessWidget {
+  const BuildSearchEmptyWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -87,7 +91,7 @@ class BuildSearchEmptyWidget extends StatelessWidget {
 class BuildSearchErrorWidget extends StatelessWidget {
   final String image, errorMessage;
 
-  BuildSearchErrorWidget({required this.image, required this.errorMessage});
+  const BuildSearchErrorWidget({Key? key, required this.image, required this.errorMessage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +111,7 @@ class BuildSearchErrorWidget extends StatelessWidget {
             ),
             Text(
               errorMessage,
-              style: TextStyle(
+              style: const TextStyle(
                 color: blackColor,
                 fontSize: 22.0,
                 height: 1,

@@ -6,7 +6,8 @@ import '../../app_components.dart';
 import '../home_view_components.dart';
 
 class EntertainmentTabView extends StatelessWidget {
-  final refreshKey = GlobalKey<RefreshIndicatorState>();
+
+  const EntertainmentTabView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class EntertainmentTabView extends StatelessWidget {
         } else if (provider.entertainmentStates ==
             EntertainmentStates.LoadedState) {
           return buildTabViewBody(
-            refreshKey: refreshKey,
+            refreshKey: GlobalKey<RefreshIndicatorState>(),
             refresh: () {
               return provider.getEntertainmentArticles(
                   country: provider.language!);

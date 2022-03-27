@@ -9,6 +9,8 @@ import '../app_components.dart';
 import 'search_view_components.dart';
 
 class SearchView extends StatefulWidget {
+  const SearchView({Key? key}) : super(key: key);
+
   @override
   _SearchViewState createState() => _SearchViewState();
 }
@@ -35,7 +37,7 @@ class _SearchViewState extends State<SearchView> {
             ),
           ),
           const Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Divider(
               color: appGreyColor,
               thickness: 2.0,
@@ -78,6 +80,7 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();

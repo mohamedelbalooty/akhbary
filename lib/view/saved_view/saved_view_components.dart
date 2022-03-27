@@ -10,13 +10,13 @@ import '../web_screen_view.dart';
 class BuildListOfSavedItem extends StatelessWidget {
   final List<Article> articles;
 
-  BuildListOfSavedItem({required this.articles});
+  const BuildListOfSavedItem({Key? key, required this.articles}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: articles.length,
-      separatorBuilder: (_, index) => Divider(
+      separatorBuilder: (_, index) => const Divider(
         color: appMainColor,
       ),
       itemBuilder: (_, index) {
@@ -42,7 +42,7 @@ class BuildItemOfSavedList extends StatelessWidget {
   final Article article;
   final DismissDirectionCallback? onDismiss;
 
-  BuildItemOfSavedList({required this.article, required this.onDismiss});
+  const BuildItemOfSavedList({Key? key, required this.article, required this.onDismiss}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,9 +112,9 @@ class BuildItemOfSavedList extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              '${ConvertToTimeAgo.convertToTimeAgo(
+                              ConvertToTimeAgo.convertToTimeAgo(
                                     DateTime.parse(article.publishedAt),
-                                  )}',
+                                  ),
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .appBarTheme
@@ -144,7 +144,7 @@ class BuildItemOfSavedList extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8.0),
                   ),
-                  child: BuildCachedNetworkImage(
+                  child: BuildNetworkImage(
                     height: 125.0,
                     width: 125.0,
                     imageUrl: article.imageUrl,
@@ -164,9 +164,9 @@ class BuildItemOfSavedList extends StatelessWidget {
       required double endPadding}) {
     return Container(
       alignment: alignment,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.transparent,
-        borderRadius: const BorderRadius.all(
+        borderRadius: BorderRadius.all(
           Radius.circular(8.0),
         ),
       ),
@@ -187,6 +187,8 @@ class BuildItemOfSavedList extends StatelessWidget {
 }
 
 class BuildNoSavedItem extends StatelessWidget {
+  const BuildNoSavedItem({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -215,7 +217,7 @@ class BuildNoSavedItem extends StatelessWidget {
               width: 250.0,
               decoration: const BoxDecoration(
                 color: appMainColor,
-                borderRadius: const BorderRadius.all(
+                borderRadius: BorderRadius.all(
                   Radius.circular(8.0),
                 ),
               ),

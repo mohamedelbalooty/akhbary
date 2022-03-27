@@ -1,4 +1,3 @@
-
 import 'package:akhbary_app/states/article_states.dart';
 import 'package:akhbary_app/view_model/article_view_model.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import '../../app_components.dart';
 import '../home_view_components.dart';
 
 class TechTabView extends StatelessWidget {
-  final refreshKey = GlobalKey<RefreshIndicatorState>();
+  const TechTabView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class TechTabView extends StatelessWidget {
           return const BuildLoadingWidget();
         } else if (provider.techStates == TechStates.LoadedState) {
           return buildTabViewBody(
-            refreshKey: refreshKey,
+            refreshKey: GlobalKey<RefreshIndicatorState>(),
             refresh: () {
               return provider.getTechArticles(country: provider.language!);
             },

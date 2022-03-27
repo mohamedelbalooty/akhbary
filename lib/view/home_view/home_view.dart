@@ -12,20 +12,13 @@ import 'tabs/top_headlines_tab_view.dart';
 class HomeView extends StatelessWidget {
   static const String id = 'HomeView';
 
-  final List<Widget> _tabItems = [
-    TopHeadlinesTabView(),
-    BusinessTabView(),
-    TechTabView(),
-    SportsTabView(),
-    HealthTabView(),
-    EntertainmentTabView(),
-  ];
+  const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return DefaultTabController(
-      length: _tabItems.length,
+      length: 6,
       initialIndex:
           context.select<TapBarProvider, int>((value) => value.tabBarIndex),
       child: Scaffold(
@@ -33,8 +26,15 @@ class HomeView extends StatelessWidget {
           context,
           isPortrait,
         ),
-        body: TabBarView(
-          children: _tabItems,
+        body: const TabBarView(
+          children: [
+            TopHeadlinesTabView(),
+            BusinessTabView(),
+            TechTabView(),
+            SportsTabView(),
+            HealthTabView(),
+            EntertainmentTabView(),
+          ],
         ),
       ),
     );

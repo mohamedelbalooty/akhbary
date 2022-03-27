@@ -96,7 +96,7 @@ class ArticleViewModel extends ChangeNotifier {
   ErrorResult? _entertainmentErrorResult;
   ErrorResult? _searchErrorResult;
 
-  ArticleServicesImplementation _articleServicesImplementation =
+  final ArticleServicesImplementation _articleServicesImplementation =
       ArticleServicesImplementation();
 
   Future<void> getTopHeadlineArticles({required String country}) async {

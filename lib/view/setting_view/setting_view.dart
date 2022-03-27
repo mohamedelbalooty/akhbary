@@ -6,6 +6,8 @@ import 'setting_view_components.dart';
 class SettingView extends StatelessWidget {
   static const String id = 'SettingView';
 
+  const SettingView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

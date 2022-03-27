@@ -7,6 +7,8 @@ import '../app_components.dart';
 import 'saved_view_components.dart';
 
 class SavedView extends StatelessWidget {
+  const SavedView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,7 @@ class SavedView extends StatelessWidget {
               color: Colors.transparent,
             );
           } else {
-            return provider.savedArticles.length != 0
+            return provider.savedArticles.isNotEmpty
                 ? BuildListOfSavedItem(
                     articles: provider.savedArticles,
                   )

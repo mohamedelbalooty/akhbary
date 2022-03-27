@@ -8,6 +8,8 @@ import 'layout_view/layout_view.dart';
 class SplashView extends StatefulWidget {
   static const String id = 'SplashView';
 
+  const SplashView({Key? key}) : super(key: key);
+
   @override
   _SplashViewState createState() => _SplashViewState();
 }
@@ -18,7 +20,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    timer = Timer(Duration(seconds: 2), () {
+    timer = Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => LayoutView()));
     });

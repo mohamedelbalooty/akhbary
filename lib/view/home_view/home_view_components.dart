@@ -66,7 +66,7 @@ AppBar buildHomeViewAppBar(BuildContext context, bool isPortrait) {
       indicatorColor: appMainColor,
       indicatorWeight: 3.0,
       indicatorPadding:
-          EdgeInsetsDirectional.only(bottom: 10.0, start: 20.0, end: 20.0),
+          const EdgeInsetsDirectional.only(bottom: 10.0, start: 20.0, end: 20.0),
       tabs: [
         _buildTabItem(
           'top news'.tr(),
@@ -100,7 +100,7 @@ Tab _buildTabItem(String tabTitle) {
 class BuildHomeViewCarouselSlider extends StatelessWidget {
   final List<Article> articles;
 
-  BuildHomeViewCarouselSlider({required this.articles});
+  const BuildHomeViewCarouselSlider({Key? key, required this.articles}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,7 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
               arguments: articles[index].url,
             );
           },
-          child: Container(
+          child: SizedBox(
             height: 160.0,
             width: double.infinity,
             child: Stack(
@@ -124,7 +124,7 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8.0),
                   ),
-                  child: BuildCachedNetworkImage(
+                  child: BuildNetworkImage(
                     height: 160.0,
                     width: double.infinity,
                     imageUrl: articles[index].imageUrl,
@@ -137,10 +137,10 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '${ConvertToTimeAgo.convertToTimeAgo(
+                        ConvertToTimeAgo.convertToTimeAgo(
                               DateTime.parse(articles[index].publishedAt),
-                            )}',
-                        style: TextStyle(
+                            ),
+                        style: const TextStyle(
                           color: whiteColor,
                           fontSize: 14.0,
                           fontWeight: FontWeight.bold,
@@ -150,7 +150,7 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
                         articles[index].title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: whiteColor,
                           fontSize: 18.0,
                           // fontWeight: FontWeight.w500,
@@ -177,8 +177,8 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
         autoPlay: true,
         enlargeCenterPage: true,
         enableInfiniteScroll: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 2000),
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 2000),
         pauseAutoPlayOnTouch: true,
         autoPlayCurve: Curves.easeIn,
       ),
@@ -187,6 +187,8 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
 }
 
 class BuildAnimatedSmoothIndicator extends StatelessWidget {
+  const BuildAnimatedSmoothIndicator({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -207,6 +209,8 @@ class BuildAnimatedSmoothIndicator extends StatelessWidget {
 }
 
 class BuildTopHeadlinesTitle extends StatelessWidget {
+  const BuildTopHeadlinesTitle({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -262,7 +266,7 @@ class BuildListOfItem extends StatelessWidget {
   final List<Article> articles;
   final int articlesNumber;
 
-  BuildListOfItem({required this.articles, required this.articlesNumber});
+  const BuildListOfItem({Key? key, required this.articles, required this.articlesNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -285,7 +289,7 @@ class BuildListOfItem extends StatelessWidget {
 class BuildItemOfList extends StatelessWidget {
   final Article article;
 
-  BuildItemOfList({required this.article});
+  const BuildItemOfList({Key? key, required this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -331,10 +335,10 @@ class BuildItemOfList extends StatelessWidget {
                     textBaseline: TextBaseline.ideographic,
                     children: [
                       Text(
-                        '${ConvertToTimeAgo.convertToTimeAgo(
+                        ConvertToTimeAgo.convertToTimeAgo(
                               DateTime.parse(article.publishedAt),
-                            )}',
-                        style: TextStyle(
+                            ),
+                        style: const TextStyle(
                           color: appGreyColor,
                           fontSize: 16.0,
                         ),
@@ -384,14 +388,14 @@ class BuildItemOfList extends StatelessWidget {
                                   });
                                 }
                               } else {
-                                await Share.share('${(article.url)}');
+                                await Share.share((article.url));
                               }
                             },
                             popupMenuItems: [
                               _buildPopupMenuItem(
                                 value: 'visit',
                                 title: 'visit item'.tr(),
-                                widget: Icon(
+                                widget: const Icon(
                                   Icons.link,
                                   color: appMainColor,
                                 ),
@@ -399,7 +403,7 @@ class BuildItemOfList extends StatelessWidget {
                               _buildPopupMenuItem(
                                 value: 'save',
                                 title: 'save item'.tr(),
-                                widget: Icon(
+                                widget: const Icon(
                                   Icons.bookmark,
                                   color: appMainColor,
                                 ),
@@ -407,7 +411,7 @@ class BuildItemOfList extends StatelessWidget {
                               _buildPopupMenuItem(
                                 value: 'share',
                                 title: 'share'.tr(),
-                                widget: Icon(
+                                widget: const Icon(
                                   Icons.share,
                                   color: appMainColor,
                                 ),
@@ -427,7 +431,7 @@ class BuildItemOfList extends StatelessWidget {
             start: 0.0,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: BuildCachedNetworkImage(
+              child: BuildNetworkImage(
                 height: 125.0,
                 width: 125.0,
                 imageUrl: article.imageUrl,
@@ -446,9 +450,9 @@ class BuildErrorWidget extends StatelessWidget {
   final Future Function() refresh;
 
   BuildErrorWidget(
-      {required this.refresh,
+      {Key? key, required this.refresh,
       required this.image,
-      required this.errorMessage});
+      required this.errorMessage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -490,10 +494,10 @@ class BuildPlatformRefreshIndicator extends StatelessWidget {
   final Future Function() onRefresh;
   final Widget child;
 
-  BuildPlatformRefreshIndicator(
-      {required this.refreshKey,
+   const BuildPlatformRefreshIndicator(
+      {Key? key, required this.refreshKey,
       required this.onRefresh,
-      required this.child});
+      required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -526,11 +530,11 @@ class BuildPopupMenuButton extends StatelessWidget {
   final Function(dynamic) onSelect;
   final List<PopupMenuItem> popupMenuItems;
 
-  BuildPopupMenuButton(
-      {required this.icon,
+  const BuildPopupMenuButton(
+      {Key? key, required this.icon,
       required this.sizeOfIcon,
       required this.onSelect,
-      required this.popupMenuItems});
+      required this.popupMenuItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -559,7 +563,7 @@ PopupMenuItem<String> _buildPopupMenuItem(
       children: [
         Text(
           title,
-          style: TextStyle(color: appGreyColor, fontWeight: FontWeight.w500),
+          style: const TextStyle(color: appGreyColor, fontWeight: FontWeight.w500),
         ),
         widget!,
       ],

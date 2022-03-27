@@ -13,6 +13,8 @@ import '../app_components.dart';
 import 'static_views/about_view.dart';
 
 class BuildVersionWidget extends StatelessWidget {
+  const BuildVersionWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<PackageInfo>(
@@ -32,7 +34,7 @@ class BuildVersionWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${snapshot.data!.version}',
+                  snapshot.data!.version,
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
                     fontSize: 14.0,
@@ -75,11 +77,11 @@ class BuildSettingItemWidget extends StatefulWidget {
   final Function() onClick;
   final bool isThemeIcon;
 
-  const BuildSettingItemWidget(
-      {required this.icon,
+   const BuildSettingItemWidget(
+      {Key? key, required this.icon,
       required this.title,
       required this.onClick,
-      this.isThemeIcon = false});
+      this.isThemeIcon = false}) : super(key: key);
 
   @override
   _BuildSettingItemWidgetState createState() => _BuildSettingItemWidgetState();
@@ -169,8 +171,8 @@ class BuildContactUsItemWidget extends StatelessWidget {
   final String title, imageIcon;
   final Function() onClick;
 
-  const BuildContactUsItemWidget(
-      {required this.title, required this.imageIcon, required this.onClick});
+   const BuildContactUsItemWidget(
+      {Key? key, required this.title, required this.imageIcon, required this.onClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -379,8 +381,8 @@ class BuildBottomSheetItem extends StatelessWidget {
   final String title, iconImage;
   final Function() onClick;
 
-  const BuildBottomSheetItem(
-      {required this.title, required this.iconImage, required this.onClick});
+   const BuildBottomSheetItem(
+      {Key? key, required this.title, required this.iconImage, required this.onClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

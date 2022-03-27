@@ -6,7 +6,8 @@ import '../../app_components.dart';
 import '../home_view_components.dart';
 
 class TopHeadlinesTabView extends StatelessWidget {
-  final refreshKey = GlobalKey<RefreshIndicatorState>();
+  const TopHeadlinesTabView({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class TopHeadlinesTabView extends StatelessWidget {
         } else if (provider.topHeadlinesStates ==
             TopHeadlinesStates.LoadedState) {
           return BuildPlatformRefreshIndicator(
-            refreshKey: refreshKey,
+            refreshKey: GlobalKey<RefreshIndicatorState>(),
             onRefresh: () {
               return provider.getTopHeadlineArticles(
                   country: provider.language!);
@@ -35,8 +36,8 @@ class TopHeadlinesTabView extends StatelessWidget {
                   BuildHomeViewCarouselSlider(
                       articles: provider.topHeadlinesArticles!),
                   const SizedBox(height: 15.0),
-                  BuildAnimatedSmoothIndicator(),
-                  BuildTopHeadlinesTitle(),
+                  const BuildAnimatedSmoothIndicator(),
+                  const BuildTopHeadlinesTitle(),
                   buildTopHeadlineTitleDivider(),
                   BuildListOfItem(
                     articles: provider.topHeadlinesArticles!,

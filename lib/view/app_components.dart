@@ -29,7 +29,7 @@ ThemeData buildAppCustomTheme(
     ),
     tabBarTheme: TabBarTheme(
       labelColor: tabBarLabelColor,
-      labelStyle: TextStyle(
+      labelStyle: const TextStyle(
         fontSize: 15.0,
         fontWeight: FontWeight.w500,
         fontFamily: 'Tajawal',
@@ -81,12 +81,12 @@ AppBar buildCustomAppBar({required String title}) {
 }
 
 ///BUILD CACHED NETWORK IMAGE CUSTOM WIDGET
-class BuildCachedNetworkImage extends StatelessWidget {
+class BuildNetworkImage extends StatelessWidget {
   final String imageUrl;
   final double height, width;
 
-  BuildCachedNetworkImage(
-      {required this.imageUrl, required this.height, required this.width});
+  const BuildNetworkImage(
+      {Key? key, required this.imageUrl, required this.height, required this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class BuildLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator.adaptive(),
       ),
     );
@@ -190,7 +190,7 @@ class ConvertToTimeAgo {
           ? '${diff.inSeconds} ${'second'.tr()} ${'ago'.tr()}'
           : '${'ago'.tr()} ${diff.inSeconds} ${'second'.tr()}';
     } else {
-      return '${'just now'.tr()}';
+      return 'just now'.tr();
     }
   }
 }
@@ -198,9 +198,10 @@ class ConvertToTimeAgo {
 class GradientText extends StatelessWidget {
   const GradientText(
     this.text, {
+      Key? key,
     required this.gradient,
     this.style,
-  });
+  }) : super(key: key);
 
   final String text;
   final TextStyle? style;
