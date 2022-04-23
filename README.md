@@ -21,6 +21,7 @@
 - Singleton design pattern to use database helper concept.
 - Sqflite plugin for saving articles in local memory.
 - Functional programming concept using dartz plugin for handling server errors and exceptions.
+- - Remote data from (https://newsapi.org/) api source.
 
 -----------------------------------------------------------------------------
 
