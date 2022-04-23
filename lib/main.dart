@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+import 'core/widget_error.dart';
 import 'provider/app_theme_provider.dart';
 import 'utils/app_constants.dart';
 import 'utils/helper/cache_helper.dart';
@@ -11,6 +14,11 @@ import 'view/splash_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  errorWidget();
+  ByteData data =
+      await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
+  SecurityContext.defaultContext
+      .setTrustedCertificatesBytes(data.buffer.asUint8List());
   await CacheHelper.init();
   await translator.init(
     localeType: LocalizationDefaultType.device,
@@ -33,15 +41,16 @@ String setLanguage() {
     return 'ar';
   } else if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == 'eg') {
     return 'ar';
-  } else if(CacheHelper.getStringData(key: sharedPrefsLanguageKey) == 'us'){
+  } else if (CacheHelper.getStringData(key: sharedPrefsLanguageKey) == 'us') {
     return 'en';
-  }else{
+  } else {
     return 'fr';
   }
 }
 
 class AkhbaryApp extends StatelessWidget {
   const AkhbaryApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,8 +63,9 @@ class AkhbaryApp extends StatelessWidget {
       supportedLocales: translator.locals(),
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: context.select<AppThemeProvider, bool>((value) => value.isDark) ? ThemeMode.dark : ThemeMode.light,
+      themeMode: context.select<AppThemeProvider, bool>((value) => value.isDark)
+          ? ThemeMode.dark
+          : ThemeMode.light,
     );
   }
 }
-

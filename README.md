@@ -13,7 +13,6 @@ categories such as business, health, sports and etc.....
 - Singleton design pattern to use database helper concept.
 - Sqflite plugin for saving articles in local memory.
 - Functional programming concept using dartz plugin for handling server errors and exceptions.
-- Animated_theme_switcher plugin to animate switching between themes
 
 -----------------------------------------------------------------------------
 

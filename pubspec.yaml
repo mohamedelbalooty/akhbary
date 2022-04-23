@@ -1,9 +1,9 @@
 name: akhbary_app
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
-version: 1.0.1
+version: 1.0.2+4
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
@@ -30,6 +30,7 @@ dependencies:
   share: ^2.0.4
   fluttertoast: ^8.0.9
   transparent_image: ^2.0.0
+  store_redirect: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +45,7 @@ flutter:
     - assets/langs/ar.json
     - assets/langs/fr.json
     - assets/images/
+    - assets/ca/
 
   fonts:
     - family: Tajawal

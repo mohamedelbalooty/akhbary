@@ -30,8 +30,8 @@ class TechTabView extends StatelessWidget {
             refresh: () {
               return provider.getTechArticles(country: provider.language!);
             },
-            image: provider.techErrorResult!.errorImage,
-            errorMessage: provider.techErrorResult!.errorMessage,
+            image: provider.techErrorResult?.errorImage,
+            errorMessage: provider.techErrorResult?.errorMessage,
           );
         }
       },

@@ -76,6 +76,10 @@ AppBar buildCustomAppBar({required String title}) {
     elevation: 5.0,
     title: Text(
       title,
+      style: const TextStyle(
+        fontSize: 22.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
 }
@@ -223,6 +227,10 @@ class GradientText extends StatelessWidget {
 void namedNavigateTo(
     {required BuildContext context, required String routeName, arguments}) {
   Navigator.pushNamed(context, routeName, arguments: arguments);
+}
+
+void materialNavigateTo({required BuildContext context, required Widget screen}){
+  Navigator.push(context, MaterialPageRoute(builder: (_) => screen));
 }
 
 void toastMessage({required String message}) {

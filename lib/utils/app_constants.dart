@@ -11,6 +11,7 @@ const String dbColumnTitle = 'title';
 const String dbColumnUrl = 'url';
 const String dbColumnImageUrl = 'urlToImage';
 const String dbColumnPublishedAt = 'publishedAt';
+const String dbColumnAuthor = 'author';
+const String dbColumnSource = 'source';
 const String sharedPrefsLanguageKey = 'language';
 const String sharedPrefsThemeKey = 'theme';
-

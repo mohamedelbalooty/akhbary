@@ -37,11 +37,16 @@
   "no item saved": "Il n'y a pas d'articles enregistrés",
   "privacy": "Politique de confidentialité",
   "about": "À propos de l'application",
+  "share_app": "Partager l'application",
+  "rate_app": "Évaluer l'application",
   "dark_mode": "Mode nuit",
   "contact_us": "Contactez nous",
   "version": "Version",
   "country": "Pays",
   "setting": "Réglages",
   "about_us": "Une application d'actualités est une application qui vous aidera à consulter les actualités mondiales telles que l'Egypte, les États-Unis ou la France. Grâce à l'application, vous pouvez conserver tous les articles que vous aimez. Grâce à l'application, vous pouvez rechercher n'importe quel sujet et conserver Si vous voulez en savoir plus sur le sujet, vous pouvez visiter la source des nouvelles et l'éditeur pour lui.",
-  "share": "Partager l'article"
+  "share": "Partager l'article",
+  "service_provider": "Fournisseur de services",
+  "author": "Auteure",
+  "source": "La source"
 }

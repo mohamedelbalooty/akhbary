@@ -37,11 +37,16 @@
   "no item saved": "No item saved",
   "privacy": "Privacy and Security",
   "about": "About",
+  "share_app": "Share the app",
+  "rate_app": "Rate the app",
   "dark_mode": "Dark mode",
   "contact_us": "Contact us",
   "version": "Version",
   "country": "Country",
   "setting":"Setting",
   "about_us": "A news application is an application that will help you look at world news such as Egypt, the United States or France. Through the application, you can keep all the articles that you like. Through the application, you can search for any topic and keep it as well. If you want to read more about the topic, you can visit the source of the news and the publisher for him.",
-  "share": "Share an article"
+  "share": "Share an article",
+  "service_provider": "Service provider",
+  "author": "Author",
+  "source": "Source"
 }

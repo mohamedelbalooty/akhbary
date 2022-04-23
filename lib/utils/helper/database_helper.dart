@@ -23,7 +23,7 @@ class DatabaseHelper {
   initializeDatabase() async {
     final String dbPath = await getDatabasesPath();
     final String dbName = path.join(dbPath, 'articleDatabase.db');
-    return await openDatabase(dbName, version: 1,
+    return await openDatabase(dbName, version: 2,
         onCreate: (Database db, int version) async {
       await db.execute('''
       CREATE TABLE $dbTableName(
@@ -31,7 +31,9 @@ class DatabaseHelper {
       $dbColumnTitle TEXT NOT NULL,
       $dbColumnUrl TEXT NOT NULL,
       $dbColumnImageUrl TEXT NOT NULL,
-      $dbColumnPublishedAt TEXT NOT NULL)
+      $dbColumnPublishedAt TEXT NOT NULL,
+      $dbColumnAuthor TEXT NOT NULL,
+      $dbColumnSource TEXT NOT NULL)
       ''');
     });
   }
@@ -50,7 +52,7 @@ class DatabaseHelper {
     return jsonData.isNotEmpty
         ? jsonData
             .map(
-              (item) => Article.fromJson(item),
+              (item) => Article.fromLocalJson(item),
             )
             .toList()
         : [];

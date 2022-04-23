@@ -30,8 +30,8 @@ class HealthTabView extends StatelessWidget {
             refresh: () {
               return provider.getHealthArticles(country: provider.language!);
             },
-            image: provider.healthErrorResult!.errorImage,
-            errorMessage: provider.healthErrorResult!.errorMessage,
+            image: provider.healthErrorResult?.errorImage,
+            errorMessage: provider.healthErrorResult?.errorMessage,
           );
         }
       },

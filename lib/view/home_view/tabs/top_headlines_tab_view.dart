@@ -53,8 +53,8 @@ class TopHeadlinesTabView extends StatelessWidget {
               return provider.getTopHeadlineArticles(
                   country: provider.language!);
             },
-            image: provider.topHeadlineErrorResult!.errorImage,
-            errorMessage: provider.topHeadlineErrorResult!.errorMessage,
+            image: provider.topHeadlineErrorResult?.errorImage,
+            errorMessage: provider.topHeadlineErrorResult?.errorMessage,
           );
         }
       },

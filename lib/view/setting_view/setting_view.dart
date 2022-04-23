@@ -21,7 +21,7 @@ class SettingView extends StatelessWidget {
               const SizedBox(
                 height: 15.0,
               ),
-              BuildVersionWidget(),
+              const BuildVersionWidget(),
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

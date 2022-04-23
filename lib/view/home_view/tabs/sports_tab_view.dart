@@ -30,8 +30,8 @@ class SportsTabView extends StatelessWidget {
             refresh: () {
               return provider.getSportsArticles(country: provider.language!);
             },
-            image: provider.techErrorResult!.errorImage,
-            errorMessage: provider.techErrorResult!.errorMessage,
+            image: provider.techErrorResult?.errorImage,
+            errorMessage: provider.techErrorResult?.errorMessage,
           );
         }
       },

@@ -13,7 +13,7 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:share/share.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../app_components.dart';
-import '../web_screen_view.dart';
+import '../web_view/web_view.dart';
 
 AppBar buildHomeViewAppBar(BuildContext context, bool isPortrait) {
   return AppBar(
@@ -23,7 +23,7 @@ AppBar buildHomeViewAppBar(BuildContext context, bool isPortrait) {
       style: TextStyle(
           color: Theme.of(context).tabBarTheme.labelColor,
           fontSize: 28.0,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
           height: 2),
     ),
     titleSpacing: 20.0,
@@ -59,14 +59,14 @@ AppBar buildHomeViewAppBar(BuildContext context, bool isPortrait) {
       ),
     ],
     bottom: TabBar(
-      onTap: (int index){
+      onTap: (int index) {
         context.read<TapBarProvider>().changeTabBarIndex(index);
       },
       isScrollable: isPortrait ? true : false,
       indicatorColor: appMainColor,
       indicatorWeight: 3.0,
-      indicatorPadding:
-          const EdgeInsetsDirectional.only(bottom: 10.0, start: 20.0, end: 20.0),
+      indicatorPadding: const EdgeInsetsDirectional.only(
+          bottom: 10.0, start: 20.0, end: 20.0),
       tabs: [
         _buildTabItem(
           'top news'.tr(),
@@ -100,7 +100,8 @@ Tab _buildTabItem(String tabTitle) {
 class BuildHomeViewCarouselSlider extends StatelessWidget {
   final List<Article> articles;
 
-  const BuildHomeViewCarouselSlider({Key? key, required this.articles}) : super(key: key);
+  const BuildHomeViewCarouselSlider({Key? key, required this.articles})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +110,9 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
       itemBuilder: (_, index, realIndex) {
         return InkWell(
           onTap: () {
-            namedNavigateTo(
-              context: context,
-              routeName: WebScreenView.id,
-              arguments: articles[index].url,
-            );
+            materialNavigateTo(
+                context: context,
+                screen: WebScreenView(article: articles[index]));
           },
           child: SizedBox(
             height: 160.0,
@@ -138,8 +137,8 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
                     children: [
                       Text(
                         ConvertToTimeAgo.convertToTimeAgo(
-                              DateTime.parse(articles[index].publishedAt),
-                            ),
+                          DateTime.parse(articles[index].publishedAt),
+                        ),
                         style: const TextStyle(
                           color: whiteColor,
                           fontSize: 14.0,
@@ -165,10 +164,11 @@ class BuildHomeViewCarouselSlider extends StatelessWidget {
         );
       },
       options: CarouselOptions(
-        onPageChanged: (int currentIndex, reason) =>
-            context.read<CarouselSliderProvider>().changeCarouselSliderIndex(currentIndex),
-        initialPage: context
-            .select<CarouselSliderProvider, int>((value) => value.carouselSliderIndex),
+        onPageChanged: (int currentIndex, reason) => context
+            .read<CarouselSliderProvider>()
+            .changeCarouselSliderIndex(currentIndex),
+        initialPage: context.select<CarouselSliderProvider, int>(
+            (value) => value.carouselSliderIndex),
         height: 160.0,
         disableCenter: true,
         //to control in width
@@ -193,8 +193,8 @@ class BuildAnimatedSmoothIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: AnimatedSmoothIndicator(
-        activeIndex: context
-            .select<CarouselSliderProvider, int>((value) => value.carouselSliderIndex),
+        activeIndex: context.select<CarouselSliderProvider, int>(
+            (value) => value.carouselSliderIndex),
         count: 5,
         effect: ExpandingDotsEffect(
           dotHeight: 7.0,
@@ -233,8 +233,11 @@ class BuildTopHeadlinesTitle extends StatelessWidget {
 Container buildTopHeadlineTitleDivider() {
   return Container(
     height: 3,
-    width: translator.activeLanguageCode == 'ar' ? 130.0 : translator.activeLanguageCode == 'en' ?
-    145.0 : 300.0,
+    width: translator.activeLanguageCode == 'ar'
+        ? 130.0
+        : translator.activeLanguageCode == 'en'
+            ? 145.0
+            : 300.0,
     color: appMainColor,
     margin: const EdgeInsetsDirectional.only(start: 20.0, bottom: 10.0),
   );
@@ -266,7 +269,9 @@ class BuildListOfItem extends StatelessWidget {
   final List<Article> articles;
   final int articlesNumber;
 
-  const BuildListOfItem({Key? key, required this.articles, required this.articlesNumber}) : super(key: key);
+  const BuildListOfItem(
+      {Key? key, required this.articles, required this.articlesNumber})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -336,8 +341,8 @@ class BuildItemOfList extends StatelessWidget {
                     children: [
                       Text(
                         ConvertToTimeAgo.convertToTimeAgo(
-                              DateTime.parse(article.publishedAt),
-                            ),
+                          DateTime.parse(article.publishedAt),
+                        ),
                         style: const TextStyle(
                           color: appGreyColor,
                           fontSize: 16.0,
@@ -355,31 +360,33 @@ class BuildItemOfList extends StatelessWidget {
                             sizeOfIcon: 22.0,
                             onSelect: (value) async {
                               if (value == 'visit') {
-                                namedNavigateTo(
-                                  context: context,
-                                  routeName: WebScreenView.id,
-                                  arguments: article.url,
-                                );
+                                materialNavigateTo(
+                                    context: context,
+                                    screen: WebScreenView(article: article));
                               } else if (value == 'save') {
-                                if(provider.savedArticles.length == 6){
+                                if (provider.savedArticles.length == 6) {
                                   toastMessage(
                                     message: 'item saved maximum'.tr(),
                                   );
-                                }else{
-                                  provider.addNewArticle(
+                                } else {
+                                  provider
+                                      .addNewArticle(
                                     Article(
+                                        author: article.author,
                                         title: article.title,
                                         url: article.url,
                                         imageUrl: article.imageUrl,
-                                        publishedAt: article.publishedAt),
-                                  ).then((value) {
-                                    switch(provider.databaseMessagesStates!){
-                                      case DatabaseMessagesStates.Success :
+                                        publishedAt: article.publishedAt,
+                                        source: article.source),
+                                  )
+                                      .then((value) {
+                                    switch (provider.databaseMessagesStates!) {
+                                      case DatabaseMessagesStates.Success:
                                         toastMessage(
                                           message: provider.successMessage!,
                                         );
                                         break;
-                                      case DatabaseMessagesStates.Error :
+                                      case DatabaseMessagesStates.Error:
                                         toastMessage(
                                           message: provider.errorMessage!,
                                         );
@@ -446,13 +453,12 @@ class BuildItemOfList extends StatelessWidget {
 
 class BuildErrorWidget extends StatelessWidget {
   final refreshKey = GlobalKey<RefreshIndicatorState>();
-  final String image, errorMessage;
+  final String? image, errorMessage;
   final Future Function() refresh;
 
   BuildErrorWidget(
-      {Key? key, required this.refresh,
-      required this.image,
-      required this.errorMessage}) : super(key: key);
+      {Key? key, required this.refresh, this.image, this.errorMessage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -468,13 +474,13 @@ class BuildErrorWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                image,
+                image ?? 'assets/images/bad_request_error.png',
                 height: 300.0,
                 width: 300.0,
                 fit: BoxFit.fill,
               ),
               Text(
-                errorMessage,
+                errorMessage ?? 'fetchDataException'.tr(),
                 style: TextStyle(
                   color: Theme.of(context).tabBarTheme.labelColor,
                   fontSize: 22.0,
@@ -494,10 +500,12 @@ class BuildPlatformRefreshIndicator extends StatelessWidget {
   final Future Function() onRefresh;
   final Widget child;
 
-   const BuildPlatformRefreshIndicator(
-      {Key? key, required this.refreshKey,
+  const BuildPlatformRefreshIndicator(
+      {Key? key,
+      required this.refreshKey,
       required this.onRefresh,
-      required this.child}) : super(key: key);
+      required this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -531,10 +539,12 @@ class BuildPopupMenuButton extends StatelessWidget {
   final List<PopupMenuItem> popupMenuItems;
 
   const BuildPopupMenuButton(
-      {Key? key, required this.icon,
+      {Key? key,
+      required this.icon,
       required this.sizeOfIcon,
       required this.onSelect,
-      required this.popupMenuItems}) : super(key: key);
+      required this.popupMenuItems})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -563,7 +573,8 @@ PopupMenuItem<String> _buildPopupMenuItem(
       children: [
         Text(
           title,
-          style: const TextStyle(color: appGreyColor, fontWeight: FontWeight.w500),
+          style:
+              const TextStyle(color: appGreyColor, fontWeight: FontWeight.w500),
         ),
         widget!,
       ],

@@ -4,13 +4,16 @@ import 'package:akhbary_app/view_model/database_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:provider/provider.dart';
+import '../../utils/app_constants.dart';
+import '../../utils/helper/cache_helper.dart';
 import '../app_components.dart';
-import '../web_screen_view.dart';
+import '../web_view/web_view.dart';
 
 class BuildListOfSavedItem extends StatelessWidget {
   final List<Article> articles;
 
-  const BuildListOfSavedItem({Key? key, required this.articles}) : super(key: key);
+  const BuildListOfSavedItem({Key? key, required this.articles})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +45,16 @@ class BuildItemOfSavedList extends StatelessWidget {
   final Article article;
   final DismissDirectionCallback? onDismiss;
 
-  const BuildItemOfSavedList({Key? key, required this.article, required this.onDismiss}) : super(key: key);
+  const BuildItemOfSavedList(
+      {Key? key, required this.article, required this.onDismiss})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        namedNavigateTo(
-            context: context,
-            routeName: WebScreenView.id,
-            arguments: article.url);
+        materialNavigateTo(
+            context: context, screen: WebScreenView(article: article));
       },
       child: Dismissible(
         key: UniqueKey(),
@@ -96,7 +99,11 @@ class BuildItemOfSavedList extends StatelessWidget {
                       children: [
                         Container(
                           height: 25.0,
-                          width: 90.0,
+                          width: CacheHelper.getStringData(
+                                      key: sharedPrefsLanguageKey) ==
+                                  'eg'
+                              ? 90.0
+                              : 100.0,
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -113,14 +120,18 @@ class BuildItemOfSavedList extends StatelessWidget {
                           child: Center(
                             child: Text(
                               ConvertToTimeAgo.convertToTimeAgo(
-                                    DateTime.parse(article.publishedAt),
-                                  ),
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .appBarTheme
-                                    .backgroundColor,
-                                fontSize: 15.0,
+                                DateTime.parse(article.publishedAt),
                               ),
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .appBarTheme
+                                      .backgroundColor,
+                                  fontSize: CacheHelper.getStringData(
+                                              key: sharedPrefsLanguageKey) ==
+                                          'eg'
+                                      ? 15.0
+                                      : 13.0,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),

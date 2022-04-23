@@ -35,8 +35,8 @@ class EntertainmentTabView extends StatelessWidget {
               return provider.getEntertainmentArticles(
                   country: provider.language!);
             },
-            image: provider.entertainmentErrorResult!.errorImage,
-            errorMessage: provider.entertainmentErrorResult!.errorMessage,
+            image: provider.entertainmentErrorResult?.errorImage,
+            errorMessage: provider.entertainmentErrorResult?.errorMessage,
           );
         }
       },

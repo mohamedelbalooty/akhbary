@@ -28,7 +28,7 @@ class ArticleServicesImplementation extends ArticleServices {
         Map<String, dynamic> jsonData = jsonDecode(response.body);
         List<dynamic> data = jsonData['articles'];
         List<Article> articles =
-            data.map((item) => Article.fromJson(item)).toList();
+            data.map((item) => Article.fromRemoteJson(item)).toList();
         return Left(articles);
       } else {
         return Right(returnResponse(response));
@@ -57,7 +57,7 @@ class ArticleServicesImplementation extends ArticleServices {
         Map<String, dynamic> jsonData = jsonDecode(response.body);
         List<dynamic> data = jsonData['articles'];
         List<Article> articles =
-            data.map((item) => Article.fromJson(item)).toList();
+            data.map((item) => Article.fromRemoteJson(item)).toList();
         return Left(articles);
       } else {
         return Right(returnResponse(response));
@@ -87,7 +87,7 @@ class ArticleServicesImplementation extends ArticleServices {
         List<dynamic> data = jsonData['articles'];
         List<Article> searchArticles = data
             .map(
-              (item) => Article.fromJson(item),
+              (item) => Article.fromRemoteJson(item),
             )
             .toList();
         return Left(searchArticles);

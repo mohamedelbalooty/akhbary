@@ -30,8 +30,8 @@ class BusinessTabView extends StatelessWidget {
             refresh: () {
               return provider.getBusinessArticles(country: provider.language!);
             },
-            image: provider.businessErrorResult!.errorImage,
-            errorMessage: provider.businessErrorResult!.errorMessage,
+            image: provider.businessErrorResult?.errorImage,
+            errorMessage: provider.businessErrorResult?.errorMessage,
           );
         }
       },

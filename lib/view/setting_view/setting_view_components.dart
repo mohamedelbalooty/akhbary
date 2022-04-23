@@ -8,9 +8,11 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
+import 'package:store_redirect/store_redirect.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../app_components.dart';
-import 'static_views/about_view.dart';
+import 'about_view/about_view.dart';
 
 class BuildVersionWidget extends StatelessWidget {
   const BuildVersionWidget({Key? key}) : super(key: key);
@@ -29,16 +31,16 @@ class BuildVersionWidget extends StatelessWidget {
                   'version'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   snapshot.data!.version,
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -51,16 +53,16 @@ class BuildVersionWidget extends StatelessWidget {
                   'version'.tr(),
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  '1.0.0',
+                  '1.0.2',
                   style: TextStyle(
                     color: Theme.of(context).tabBarTheme.labelColor,
                     fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -77,11 +79,13 @@ class BuildSettingItemWidget extends StatefulWidget {
   final Function() onClick;
   final bool isThemeIcon;
 
-   const BuildSettingItemWidget(
-      {Key? key, required this.icon,
+  const BuildSettingItemWidget(
+      {Key? key,
+      required this.icon,
       required this.title,
       required this.onClick,
-      this.isThemeIcon = false}) : super(key: key);
+      this.isThemeIcon = false})
+      : super(key: key);
 
   @override
   _BuildSettingItemWidgetState createState() => _BuildSettingItemWidgetState();
@@ -120,41 +124,42 @@ class _BuildSettingItemWidgetState extends State<BuildSettingItemWidget> {
             Text(
               widget.title,
               style: TextStyle(
-                  color: Theme.of(context).tabBarTheme.labelColor,
-                  fontSize: 18.0,
-                  height: 1.0,
-                  fontWeight: FontWeight.w500),
+                color: Theme.of(context).tabBarTheme.labelColor,
+                fontSize: 18.0,
+                height: 1.0,
+                fontWeight: FontWeight.w600,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const Spacer(),
             widget.isThemeIcon
-                ?
-            Consumer<AppThemeProvider>(
-                        builder: (context, provider, child) {
-                          return FlutterSwitch(
-                            width: 50.0,
-                            height: 25.0,
-                            toggleSize: 15.0,
-                            value: provider.isDark,
-                            borderRadius: 30.0,
-                            padding: 3.0,
-                            toggleColor:
-                                Theme.of(context).appBarTheme.backgroundColor!,
-                            switchBorder: Border.all(
-                              color: appMainColor,
-                              width: 2,
-                            ),
-                            toggleBorder: Border.all(
-                              color: appMainColor,
-                              width: 1.5,
-                            ),
-                            activeColor: secondLightColor,
-                            inactiveColor: secondDarkColor,
-                            onToggle: (val) {
-                              provider.changeAppTheme(switchValue: val);
-                            },
-                          );
+                ? Consumer<AppThemeProvider>(
+                    builder: (context, provider, child) {
+                      return FlutterSwitch(
+                        width: 50.0,
+                        height: 25.0,
+                        toggleSize: 15.0,
+                        value: provider.isDark,
+                        borderRadius: 30.0,
+                        padding: 3.0,
+                        toggleColor:
+                            Theme.of(context).appBarTheme.backgroundColor!,
+                        switchBorder: Border.all(
+                          color: appMainColor,
+                          width: 2,
+                        ),
+                        toggleBorder: Border.all(
+                          color: appMainColor,
+                          width: 1.5,
+                        ),
+                        activeColor: secondLightColor,
+                        inactiveColor: secondDarkColor,
+                        onToggle: (val) {
+                          provider.changeAppTheme(switchValue: val);
                         },
-                      )
+                      );
+                    },
+                  )
                 : Icon(
                     Icons.arrow_forward_ios,
                     color: Theme.of(context).tabBarTheme.labelColor,
@@ -171,8 +176,12 @@ class BuildContactUsItemWidget extends StatelessWidget {
   final String title, imageIcon;
   final Function() onClick;
 
-   const BuildContactUsItemWidget(
-      {Key? key, required this.title, required this.imageIcon, required this.onClick}) : super(key: key);
+  const BuildContactUsItemWidget(
+      {Key? key,
+      required this.title,
+      required this.imageIcon,
+      required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -209,17 +218,19 @@ List<BuildSettingItemWidget> settingItems(BuildContext context) {
     BuildSettingItemWidget(
       title: 'about'.tr(),
       icon: Icons.help_outline,
-      onClick: () {
-        namedNavigateTo(context: context, routeName: AboutView.id);
-      },
+      onClick: () => namedNavigateTo(context: context, routeName: AboutView.id),
     ),
     BuildSettingItemWidget(
       title: 'privacy'.tr(),
       icon: Icons.lock_outline,
-      onClick: () {
-        launchURL(
-            'https://github.com/mohamedelbalooty/Akhbary_Privacy_Policy#readme');
-      },
+      onClick: () => launchURL(
+          'https://github.com/mohamedelbalooty/Akhbary_Privacy_Policy#readme'),
+    ),
+    BuildSettingItemWidget(
+      title: 'service_provider'.tr(),
+      icon: Icons.web,
+      onClick: () => launchURL(
+          'https://newsapi.org/'),
     ),
     BuildSettingItemWidget(
       title: 'country'.tr(),
@@ -274,6 +285,17 @@ List<BuildSettingItemWidget> settingItems(BuildContext context) {
               );
             });
       },
+    ),
+    BuildSettingItemWidget(
+      title: 'share_app'.tr(),
+      icon: Icons.share_outlined,
+      onClick: () => Share.share(
+          ('https://play.google.com/store/apps/details?id=com.mohamedElbalooty.akhbary')),
+    ),
+    BuildSettingItemWidget(
+      title: 'rate_app'.tr(),
+      icon: Icons.shop_outlined,
+      onClick: () => StoreRedirect.redirect(),
     ),
     BuildSettingItemWidget(
       title: 'dark_mode'.tr(),
@@ -361,8 +383,7 @@ List<BuildBottomSheetItem> bottomSheetItems(BuildContext context) {
       onClick: () {
         if (provider.language == 'fr') {
           Navigator.pop(context);
-          toastMessage(
-              message: "Vous regardez déjà l'actualité de France");
+          toastMessage(message: "Vous regardez déjà l'actualité de France");
         } else {
           provider.changeServiceLang(selectedLang: 'fr');
           translator
@@ -381,8 +402,12 @@ class BuildBottomSheetItem extends StatelessWidget {
   final String title, iconImage;
   final Function() onClick;
 
-   const BuildBottomSheetItem(
-      {Key? key, required this.title, required this.iconImage, required this.onClick}) : super(key: key);
+  const BuildBottomSheetItem(
+      {Key? key,
+      required this.title,
+      required this.iconImage,
+      required this.onClick})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
