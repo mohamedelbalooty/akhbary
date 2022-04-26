@@ -1,10 +1,12 @@
-# Akhbary
+# 🔥 Akhbary
 
-### Akhbary is the news application that shows the latest news in Egypt and United States for many categories such as business, health, sports and etc.....
+#### Akhbary is the news application that shows the latest news in Egypt and United States for many categories such as business, health, sports and etc.....
+
+#### Please star ⭐ the repo if you like what you see😉.
 
 -----------------------------------------------------------------------------
 
-## App Design :
+## 📸 App Design :
 ![Preview](readme_images/11.png)
 ![Preview](readme_images/1.png)
 ![Preview](readme_images/2.png)
@@ -15,7 +17,7 @@
 
 -----------------------------------------------------------------------------
 
-## Plugins and concepts:
+## ✨ Plugins and concepts:
 
 - This project is built using MVVM architecture pattern with provider for state management.
 - Singleton design pattern to use database helper concept.
@@ -25,7 +27,7 @@
 
 -----------------------------------------------------------------------------
 
-### App Features :
+### ✨ App Features :
 
 - Splash screen.
 - Support Arabic and English languages.
